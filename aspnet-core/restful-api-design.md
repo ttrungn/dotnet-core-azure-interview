@@ -25,36 +25,55 @@ Interviewers will listen for:
 - Use middleware for cross-cutting behavior such as authentication, correlation IDs, exception handling, and logging.
 - Treat API behavior as a contract that client teams depend on.
 
-## Key Interview Questions
+## Interview Questions and Answers
 
-| # | Level | Question |
-|---|---|---|
-| 1 | Basic | How do you decide resource names and URL structure for an order API? |
-| 2 | Basic | When should an API return 200, 201, 204, 400, 401, 403, 404, 409, and 500? |
-| 3 | Intermediate | How do you model filtering, sorting, pagination, and idempotency in REST APIs? |
-| 4 | Intermediate | How should validation errors and business rule errors be represented to clients? |
-| 5 | Advanced | How would you evolve a public API without breaking mobile or partner clients? |
-| 6 | Real-world scenario | A payment endpoint sometimes creates duplicate charges after client retries. How would you redesign the API contract? |
-| 7 | Advanced | How would you explain RESTful API Design to a product owner without using unnecessary jargon? |
-| 8 | Real-world scenario | How would you migrate an existing production feature toward better use of RESTful API Design without stopping delivery? |
+### 1. How do you decide resource names and URL structure for an order API?
 
-## Strong Sample Answers
+**Answer:** Start from business resources, not controller actions. Use stable nouns such as orders, invoices, payments, and shipments; keep identifiers in the path; and put filtering or paging in query parameters. The URL should describe what the client is working with, while HTTP methods describe the action.
 
-1. **Resource design:** I start with business resources such as orders, invoices, shipments, and payments. I prefer `/orders/{orderId}` over action-style routes unless the operation is not a normal resource update.
+**Example:** For example, `POST /api/v1/orders` creates an order, returns `201 Created`, and uses Problem Details for validation errors so client teams can handle failures consistently.
 
-2. **HTTP semantics:** I use `POST` to create, `GET` to read, `PUT` or `PATCH` to update, and `DELETE` to remove or cancel when that matches the business model. Status codes should tell the client what happened without reading logs.
+### 2. When should an API return 200, 201, 204, 400, 401, 403, 404, 409, and 500?
 
-3. **Validation and errors:** I return `400` for invalid input, `409` for conflicts such as duplicate payment capture, and Problem Details for a consistent error body.
+**Answer:** Status codes should communicate the result without forcing the client to parse text. Use success codes for successful operations, `400` for invalid input, `401` for unauthenticated callers, `403` for forbidden actions, `404` for missing resources, `409` for conflicts, and `500` for unexpected server failures.
 
-4. **Idempotency:** For payment or order submission, I would support an idempotency key so client retries do not create duplicate business transactions.
+**Example:** For example, `POST /api/v1/orders` creates an order, returns `201 Created`, and uses Problem Details for validation errors so client teams can handle failures consistently.
 
-5. **Versioning:** I avoid breaking changes. If a response contract must change, I add a new version or additive fields and keep old clients working.
+### 3. How do you model filtering, sorting, pagination, and idempotency in REST APIs?
 
-6. **Senior answer:** REST is not just URL naming. The value is a predictable contract that supports caching, retries, observability, and client integration.
+**Answer:** Filtering, sorting, and pagination belong in explicit query parameters with documented defaults and limits. Idempotency matters for retryable operations, especially payments or order submission, so the client can retry without creating duplicate business transactions.
 
-7. **Communication answer:** I would describe RESTful API Design in business terms: it either lowers release risk, makes customer-facing behavior more predictable, or makes failures easier to recover from.
+**Example:** For example, `POST /api/v1/orders` creates an order, returns `201 Created`, and uses Problem Details for validation errors so client teams can handle failures consistently.
 
-8. **Migration answer:** I would not rewrite everything. I would choose one high-value workflow, add tests, introduce the improved design behind the existing API contract, release incrementally, and monitor behavior after deployment.
+### 4. How should validation errors and business rule errors be represented to clients?
+
+**Answer:** Validation errors should tell the client which input is invalid. Business rule errors should explain the conflict in client-safe language. A consistent Problem Details response helps clients handle failures predictably.
+
+**Example:** For example, `POST /api/v1/orders` creates an order, returns `201 Created`, and uses Problem Details for validation errors so client teams can handle failures consistently.
+
+### 5. How would you evolve a public API without breaking mobile or partner clients?
+
+**Answer:** Prefer additive changes when possible. If a breaking change is unavoidable, introduce a new version, keep the old contract running for existing clients, and communicate the migration path clearly.
+
+**Example:** For example, `POST /api/v1/orders` creates an order, returns `201 Created`, and uses Problem Details for validation errors so client teams can handle failures consistently.
+
+### 6. A payment endpoint sometimes creates duplicate charges after client retries. How would you redesign the API contract?
+
+**Answer:** I would make the operation idempotent, require an idempotency key, store the result of the first request, and return the same outcome for safe retries. For payments, this protects customers from duplicate charges.
+
+**Example:** For example, `POST /api/v1/orders` creates an order, returns `201 Created`, and uses Problem Details for validation errors so client teams can handle failures consistently.
+
+### 7. How would you explain RESTful API Design to a product owner without using unnecessary jargon?
+
+**Answer:** I would explain RESTful API Design as making the API predictable for client teams: fewer integration bugs, clearer errors, safer retries, and lower release risk.
+
+**Example:** For example, `POST /api/v1/orders` creates an order, returns `201 Created`, and uses Problem Details for validation errors so client teams can handle failures consistently.
+
+### 8. How would you migrate an existing production feature toward better use of RESTful API Design without stopping delivery?
+
+**Answer:** I would improve one endpoint at a time, preserve the current contract, add integration tests for current behavior, introduce the improved route or response shape, and monitor client errors after release.
+
+**Example:** For example, `POST /api/v1/orders` creates an order, returns `201 Created`, and uses Problem Details for validation errors so client teams can handle failures consistently.
 
 ## Coding Example
 
@@ -81,41 +100,19 @@ public sealed class OrdersController : ControllerBase
 
 ## Real-World Scenario
 
-You are building an order management capability for a commerce platform.
-
-The business requires:
-- Customers can place orders and review order status.
-- Inventory, payment, and notification workflows must stay reliable.
-- Support staff need clear diagnostics when something fails.
-- The system must be deployable without long downtime.
-
-For **RESTful API Design**, a strong candidate should connect the concept to this business flow, explain the technical decision, call out the cost of the decision, and describe how they would verify it in production. The interviewer is usually looking for practical reasoning: not just what the concept means, but when it improves maintainability, reliability, performance, or team delivery.
+Use an order or payment API as the reference point. Explain the request contract, the normal response, the failure response, and the behavior clients can rely on. A strong answer also mentions where the behavior belongs: middleware, endpoint, filter, service, or configuration.
 
 ## Common Mistakes
 
-- Memorizing a definition of RESTful API Design but failing to connect it to a production problem.
-- Adding unnecessary abstraction before there is a clear reason.
-- Ignoring error handling, logging, validation, and testing around the implementation.
-- Treating the concept as a rule instead of a design tool.
-- Not explaining trade-offs such as complexity, performance, team familiarity, and operational support.
-
-## Follow-Up Questions an Interviewer May Ask
-
-- How would you test this?
-- How would you monitor it in production?
-- What would make you choose a simpler approach?
-- How would this design behave during partial failure?
-- How would you explain this decision in a code review?
-- What would you change if the traffic increased by ten times?
-
-## Senior-Level Explanation and Trade-Off Discussion
-
-A senior explanation of **RESTful API Design** should balance correctness and cost. The best answer usually says, "I would use this when the business risk or code complexity justifies it." For a 3+ year .NET developer, interviewers expect awareness that every pattern adds maintenance work. The stronger answer describes how the decision affects testing, deployment, observability, data consistency, and future changes.
+- Explaining the feature without describing the client-visible API behavior.
+- Mixing transport concerns, business rules, and persistence in one controller method.
+- Returning inconsistent status codes or error shapes.
+- Ignoring validation, authentication, authorization, logging, and versioning impact.
+- Treating framework defaults as production design decisions.
 
 ## Summary Checklist
 
-- [ ] I can define RESTful API Design in simple English.
-- [ ] I can give a backend business example using orders, payments, invoices, inventory, or support workflows.
-- [ ] I can discuss implementation in ASP.NET Core or Azure when relevant.
-- [ ] I can explain common mistakes and how to avoid them.
-- [ ] I can describe trade-offs, testing strategy, and production monitoring.
+- [ ] I can explain the API behavior from request to response.
+- [ ] I can give status-code and error-response examples.
+- [ ] I can say where the implementation belongs in ASP.NET Core.
+- [ ] I can describe testing and client compatibility concerns.
