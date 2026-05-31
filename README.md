@@ -4,7 +4,7 @@
 
 This wiki helps a .NET developer prepare for interviews focused on C#, ASP.NET Core, REST APIs, CQRS, Domain-Driven Design, clean architecture, Azure, DevOps, Docker, Kubernetes, testing, and code quality.
 
-The content is written for practical interview preparation. Each page explains one concept, why it matters, likely questions, strong sample answers, a realistic backend example when useful, a real-world scenario, common mistakes, follow-up questions, senior-level trade-offs, and a checklist.
+The content is written for practical interview preparation. Each page explains one concept, why it matters, practical notes, interview questions with direct answers and examples, a realistic backend example when useful, a real-world scenario, common mistakes, and a checklist.
 
 ## Who This Wiki Is For
 
@@ -28,6 +28,7 @@ The content is written for practical interview preparation. Each page explains o
 ```text
 dotnet-interview-wiki/
   README.md
+  CONTRIBUTING.md
   csharp/
     index.md
   aspnet-core/
@@ -45,6 +46,10 @@ dotnet-interview-wiki/
   communication/
     index.md
 ```
+
+## Contributing
+
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before adding or changing topics so new content follows the same structure, tone, and question-answer format.
 
 ## High-Priority Topics for This Job Description
 
