@@ -1,10 +1,12 @@
 # Explaining Technical Decisions in English
 
-## Concept Overview
+## Concept Explanation
 
 Interview communication is about explaining context, options, decisions, trade-offs, and evidence in clear practical English.
 
-In interview answers, keep the explanation practical: name the problem, show how the concept helps, and mention the cost or limitation.
+For communication topics, focus on how the answer is structured, what evidence supports it, and how clearly it connects technical choices to business impact. The concept matters because interviews often evaluate whether you can explain judgment, not just implementation details.
+
+When practicing it, use a real project-style situation with context, options, decision, trade-off, and result. Keep the language specific enough for engineers while still understandable to product owners, managers, or non-specialist interviewers.
 
 ## Why This Matters in a .NET Developer Interview
 

@@ -1,10 +1,12 @@
 # Azure Service Bus
 
-## Concept Overview
+## Concept Explanation
 
 Azure Service Bus provides reliable enterprise messaging with queues, topics, subscriptions, dead-lettering, and delivery guarantees.
 
-In interview answers, keep the explanation practical: name the problem, show how the concept helps, and mention the cost or limitation.
+For Azure work, focus on the production responsibility this service or practice takes on: hosting, scaling, configuration, secrets, messaging, storage, telemetry, deployment, security, or recovery. A good explanation should connect the Azure feature to an application requirement and an operational concern.
+
+When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
 ## Why This Matters in a .NET Developer Interview
 

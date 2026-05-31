@@ -1,10 +1,12 @@
 # Unit Testing
 
-## Concept Overview
+## Concept Explanation
 
 Unit testing verifies small units of behavior in isolation, especially business rules and application services.
 
-In interview answers, keep the explanation practical: name the problem, show how the concept helps, and mention the cost or limitation.
+For testing and quality work, focus on how this concept improves confidence in behavior, reduces regression risk, and keeps the codebase understandable as requirements change. A strong explanation should connect quality practices to real defects they prevent, not treat them as process rituals.
+
+When discussing it in an interview, describe what you would test or inspect, what feedback the practice gives the team, and how it fits into local development, pull requests, and CI. Also mention the trade-off: quality work should reduce risk without slowing delivery through unnecessary ceremony.
 
 ## Why This Matters in a .NET Developer Interview
 

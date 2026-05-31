@@ -1,10 +1,12 @@
 # Async and Await
 
-## Concept Overview
+## Concept Explanation
 
 Async and await let ASP.NET Core release threads while waiting on I/O such as database calls, HTTP APIs, queues, and storage.
 
-In interview answers, keep the explanation practical: name the problem, show how the concept helps, and mention the cost or limitation.
+For C# backend work, focus on what this concept changes in everyday code: type safety, readability, runtime behavior, testability, and how services express business rules. A good explanation should connect the language feature to concrete API or service code, not stop at syntax.
+
+When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
 ## Why This Matters in a .NET Developer Interview
 

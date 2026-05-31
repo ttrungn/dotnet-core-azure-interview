@@ -1,10 +1,12 @@
 # SOLID Principles
 
-## Concept Overview
+## Concept Explanation
 
 SOLID principles guide object and service design so code can change without spreading unnecessary impact across the system.
 
-In interview answers, keep the explanation practical: name the problem, show how the concept helps, and mention the cost or limitation.
+For architecture and design work, focus on the boundary this concept creates, the dependency direction it encourages, and the business problem it protects. The important part is not naming a pattern; it is explaining how the pattern keeps rules, data flow, and change isolated enough for the team to maintain the system.
+
+When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
 ## Why This Matters in a .NET Developer Interview
 

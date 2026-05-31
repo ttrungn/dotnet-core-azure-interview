@@ -1,10 +1,12 @@
 # Swagger and OpenAPI
 
-## Concept Overview
+## Concept Explanation
 
 OpenAPI documents API contracts and enables client generation, testing, and team alignment.
 
-In interview answers, keep the explanation practical: name the problem, show how the concept helps, and mention the cost or limitation.
+For ASP.NET Core API work, focus on how this concept affects request handling, endpoint behavior, client contracts, security, validation, diagnostics, and operational reliability. A strong explanation should show where it fits in the pipeline or application boundary and how it changes the behavior seen by API consumers.
+
+When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
 ## Why This Matters in a .NET Developer Interview
 

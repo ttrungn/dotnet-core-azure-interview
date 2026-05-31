@@ -1,10 +1,12 @@
 # Optimistic Concurrency
 
-## Concept Overview
+## Concept Explanation
 
 Optimistic concurrency detects conflicting updates without locking records for long periods.
 
-In interview answers, keep the explanation practical: name the problem, show how the concept helps, and mention the cost or limitation.
+For data access work, focus on how this concept affects correctness, query shape, transactions, concurrency, schema evolution, and production performance. A strong explanation should make clear what happens between the application code, EF Core, and the database.
+
+When discussing it in an interview, use a concrete workflow such as placing an order, updating inventory, or loading a dashboard. Explain the data risk, the implementation choice, how you would verify the generated SQL or migration, and what monitoring or tests would catch regressions.
 
 ## Why This Matters in a .NET Developer Interview
 

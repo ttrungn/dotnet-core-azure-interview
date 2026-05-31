@@ -1,10 +1,12 @@
 # CI/CD Pipelines
 
-## Concept Overview
+## Concept Explanation
 
 CI/CD pipelines automate build, test, security checks, packaging, and deployment so releases are repeatable and reviewable.
 
-In interview answers, keep the explanation practical: name the problem, show how the concept helps, and mention the cost or limitation.
+For DevOps work, focus on how this concept changes delivery safety, environment consistency, observability, deployment speed, rollback options, and runtime reliability. A strong explanation should connect the practice to the path from code commit to production behavior.
+
+When discussing it in an interview, explain the pipeline or runtime step, what can fail, how the team detects failure, and how the system recovers. Include the trade-off between automation, operational complexity, cost, and team maturity.
 
 ## Why This Matters in a .NET Developer Interview
 
