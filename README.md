@@ -27,15 +27,23 @@ The content is written for practical interview preparation. Each page explains o
 
 ```text
 dotnet-interview-wiki/
-  index.md
+  README.md
   csharp/
+    index.md
   aspnet-core/
+    index.md
   architecture/
+    index.md
   data-access/
+    index.md
   azure/
+    index.md
   devops/
+    index.md
   testing-quality/
+    index.md
   communication/
+    index.md
 ```
 
 ## High-Priority Topics for This Job Description
@@ -68,6 +76,15 @@ dotnet-interview-wiki/
 | 7 | Testing, code review, communication | Practice strong English answers with examples. |
 
 ## Topic Map
+
+- [C# and .NET Study Order](csharp/index.md)
+- [ASP.NET Core and REST APIs Study Order](aspnet-core/index.md)
+- [Architecture and Design Study Order](architecture/index.md)
+- [Data Access Study Order](data-access/index.md)
+- [Azure Study Order](azure/index.md)
+- [DevOps and Deployment Study Order](devops/index.md)
+- [Testing and Quality Study Order](testing-quality/index.md)
+- [Communication and Interview Readiness Study Order](communication/index.md)
 
 ## C# and .NET
 
@@ -162,4 +179,3 @@ dotnet-interview-wiki/
 - [Explaining Trade-Offs](communication/explaining-trade-offs.md)
 - [Behavioral Questions for .NET Developers](communication/behavioral-questions-for-dotnet-developers.md)
 - [Code Review Discussion Questions](communication/code-review-discussion-questions.md)
-
