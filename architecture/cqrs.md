@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+CQRS means Command Query Responsibility Segregation. It separates operations that change state from operations that read state.
+
+- **Command:** An action that changes data, such as `CreateOrderCommand`, `CancelOrderCommand`, or `CapturePaymentCommand`.
+- **Query:** A read operation that returns data, such as `GetOrderDetailsQuery` or `SearchOrdersQuery`.
+- **Command model:** Focuses on validation, business rules, and consistency.
+- **Query model:** Focuses on fast, convenient read shapes for screens, reports, or APIs.
+
+Example: placing an order may require inventory checks, payment rules, and transaction handling, so it belongs in a command handler. Showing an order summary can use a simple read-optimized DTO. CQRS does not require separate databases or event sourcing; a single database with separate command/query handlers is often enough.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **CQRS** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

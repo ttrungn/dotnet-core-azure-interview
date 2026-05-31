@@ -8,6 +8,19 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+RESTful API design models API behavior around resources and HTTP semantics.
+
+- **Resources:** Use nouns such as orders, invoices, payments, and shipments.
+- **URLs:** Keep routes predictable, such as `/api/v1/orders/{orderId}`.
+- **Methods:** Use HTTP methods to express intent.
+- **Representations:** Return DTOs designed for clients, not EF entities.
+- **Errors:** Use consistent error bodies, such as Problem Details.
+- **Idempotency:** Protect retryable operations such as payment capture.
+
+Example: `POST /api/v1/orders` creates an order; `GET /api/v1/orders/{id}` reads it; `POST /api/v1/payments/{id}/capture` may require an idempotency key.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **RESTful API Design** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For communication topics, focus on how the answer is structured, what evidence s
 
 When practicing it, use a real project-style situation with context, options, decision, trade-off, and result. Keep the language specific enough for engineers while still understandable to product owners, managers, or non-specialist interviewers.
 
+## Core Ideas and Examples
+
+Behavioral questions evaluate how you work, not only what you know technically.
+
+- **Situation:** What was happening?
+- **Task:** What were you responsible for?
+- **Action:** What did you personally do?
+- **Result:** What changed?
+- **Lesson:** What did you learn or improve afterward?
+
+Example: describe a production incident by explaining the symptoms, logs you checked, fix you made, communication with the team, and prevention added later.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Behavioral Questions for .NET Developers** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

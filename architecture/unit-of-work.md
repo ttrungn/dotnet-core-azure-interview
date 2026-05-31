@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Unit of Work coordinates multiple changes and commits them as one operation. In EF Core, `DbContext` commonly acts as the unit of work.
+
+- **Tracks changes:** EF Core tracks added, modified, and deleted entities.
+- **Commits once:** `SaveChangesAsync()` persists tracked changes together.
+- **Transaction behavior:** Multiple database changes can succeed or fail as a group.
+- **Scope:** In ASP.NET Core, a unit of work is often scoped to one request or one application use case.
+
+Example: creating an order and order lines should commit together. If saving an order line fails, the order should not be partially saved.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Unit of Work** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

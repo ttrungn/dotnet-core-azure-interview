@@ -8,6 +8,18 @@ For data access work, focus on how this concept affects correctness, query shape
 
 When discussing it in an interview, use a concrete workflow such as placing an order, updating inventory, or loading a dashboard. Explain the data risk, the implementation choice, how you would verify the generated SQL or migration, and what monitoring or tests would catch regressions.
 
+## Core Ideas and Examples
+
+A transaction groups related database changes so they commit or roll back together.
+
+- **Atomicity:** All changes succeed or none do.
+- **Consistency:** The database should not be left half-updated.
+- **Scope:** Keep transactions short and focused.
+- **EF Core default:** `SaveChangesAsync()` uses a transaction for multiple changes in many relational providers.
+- **External calls:** Avoid holding a database transaction while waiting on slow external services.
+
+Example: creating an order and inserting order lines should commit together. If inserting a line fails, the order should not be saved alone.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Transactions** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

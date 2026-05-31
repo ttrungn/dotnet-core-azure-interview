@@ -8,6 +8,18 @@ For communication topics, focus on how the answer is structured, what evidence s
 
 When practicing it, use a real project-style situation with context, options, decision, trade-off, and result. Keep the language specific enough for engineers while still understandable to product owners, managers, or non-specialist interviewers.
 
+## Core Ideas and Examples
+
+A trade-off is a decision where you gain one benefit while accepting a cost.
+
+- **Benefit:** What improves?
+- **Cost:** What becomes harder?
+- **Reason:** Why is the cost acceptable now?
+- **Risk control:** What test, metric, alert, or process reduces the downside?
+- **Revisit signal:** What would make you change the decision later?
+
+Example: using asynchronous messaging reduces checkout latency but introduces eventual consistency, so the team adds idempotency and dead-letter monitoring.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Explaining Trade-Offs** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+Exception handling controls how unexpected failures are reported, logged, translated, and recovered from.
+
+- **Throw:** Use when the current operation cannot continue safely.
+- **Catch:** Catch where you can add context, recover, retry, or translate the error.
+- **Rethrow:** Use `throw;` to preserve stack trace.
+- **Global handling:** ASP.NET Core middleware can translate unhandled exceptions to safe API responses.
+- **Validation:** Expected invalid input is often better represented as validation results, not exceptions.
+
+Example: throw when an order is in an impossible state, but return validation errors when a request is missing required fields.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Exception Handling** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,17 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+Generics let you write reusable code while preserving type safety.
+
+- **Generic type:** `List<T>` can be `List<Order>` or `List<Customer>`.
+- **Generic method:** A method can operate on different types without casting.
+- **Constraint:** `where T : IEntity` limits allowed types.
+- **Type safety:** The compiler prevents mixing incompatible types.
+
+Example: `Result<T>` can represent success or failure for `OrderDto`, `PaymentResult`, or `InvoiceDto` without duplicating the wrapper type.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Generics** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+C# fundamentals are the everyday language features that make backend code correct and readable.
+
+- **Types:** Use `Guid` for identifiers, `decimal` for money, `DateTimeOffset` for timestamps, and enums for limited state values.
+- **Value vs reference types:** `int`, `bool`, and `decimal` are value types; classes and arrays are reference types.
+- **Collections:** Use `List<T>` when building a collection and `IReadOnlyList<T>` or `IReadOnlyCollection<T>` when exposing data that callers should not mutate.
+- **Control flow:** Keep conditions and loops readable; avoid clever expressions that hide business rules.
+- **Access modifiers:** Use `private` setters and methods to protect object state.
+
+Example: an `Order` should not expose public setters for `Status` if only valid methods such as `Confirm()` can change it safely.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **C# Fundamentals for Backend Development** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

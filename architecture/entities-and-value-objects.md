@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Entities and value objects are two basic modeling tools in domain design.
+
+- **Entity:** Has a stable identity and lifecycle. Two entities can have the same data but still be different objects. Example: two customers can have the same name but different `CustomerId` values.
+- **Value object:** Has no separate identity and is compared by value. Example: `Money(100, "USD")` equals another `Money(100, "USD")`.
+- **Entity mutation:** Entities often change state through methods, such as `Order.Confirm()`.
+- **Value object immutability:** Value objects should usually be immutable so they are safe to share.
+
+Example: `Order` is an entity because it exists over time and changes status. `Address` can be a value object because it is defined by street, city, and country.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Entities and Value Objects** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

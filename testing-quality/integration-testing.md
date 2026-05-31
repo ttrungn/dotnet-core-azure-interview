@@ -8,6 +8,18 @@ For testing and quality work, focus on how this concept improves confidence in b
 
 When discussing it in an interview, describe what you would test or inspect, what feedback the practice gives the team, and how it fits into local development, pull requests, and CI. Also mention the trade-off: quality work should reduce risk without slowing delivery through unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Integration testing verifies that real components work together.
+
+- **API integration:** Test HTTP request, routing, validation, auth, and response.
+- **Database integration:** Test EF Core mapping, migrations, queries, and constraints.
+- **Messaging integration:** Test publishing and consuming behavior where practical.
+- **Realistic dependencies:** Use containers, test databases, or test hosts when behavior matters.
+- **Slower but deeper:** Integration tests are fewer than unit tests but catch boundary issues.
+
+Example: test `POST /orders` through the API and verify the order is saved in the test database.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Integration Testing** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For DevOps work, focus on how this concept changes delivery safety, environment 
 
 When discussing it in an interview, explain the pipeline or runtime step, what can fail, how the team detects failure, and how the system recovers. Include the trade-off between automation, operational complexity, cost, and team maturity.
 
+## Core Ideas and Examples
+
+A rollback strategy defines how the team recovers when a release causes problems.
+
+- **Rollback:** Return to the previous known-good version.
+- **Roll forward:** Fix the issue with a new release.
+- **Feature flags:** Disable risky behavior without redeploying.
+- **Database compatibility:** Schema changes must not trap the team on a broken version.
+- **Decision signals:** Error rate, latency, failed jobs, or business metrics trigger recovery.
+
+Example: if a new payment workflow fails, disable the feature flag or redeploy the previous image while preserving compatible database schema.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Rollback Strategy** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

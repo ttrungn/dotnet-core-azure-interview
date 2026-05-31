@@ -8,6 +8,19 @@ For data access work, focus on how this concept affects correctness, query shape
 
 When discussing it in an interview, use a concrete workflow such as placing an order, updating inventory, or loading a dashboard. Explain the data risk, the implementation choice, how you would verify the generated SQL or migration, and what monitoring or tests would catch regressions.
 
+## Core Ideas and Examples
+
+Query performance means getting the required data with the least reasonable database work.
+
+- **Projection:** Select only fields the response needs.
+- **Filtering:** Apply `Where` before materializing results.
+- **Paging:** Use `Skip` and `Take` or keyset pagination for large lists.
+- **Tracking:** Use `AsNoTracking()` for read-only queries.
+- **Indexes:** Add indexes for common filter and sort columns.
+- **Generated SQL:** Inspect SQL for important queries.
+
+Example: an order history page should query only order id, date, status, and total, not load every order line and payment record.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Query Performance** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

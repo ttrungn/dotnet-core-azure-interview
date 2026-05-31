@@ -40,6 +40,10 @@ Use this structure for concept pages:
 
 Explain the concept directly and practically.
 
+## Core Ideas and Examples
+
+Teach the concept before asking interview questions. Break down the important parts, terms, rules, or sub-concepts with concrete examples.
+
 ## Why This Matters in a .NET Developer Interview
 
 Explain why interviewers ask about it and what signals they are looking for.
@@ -79,6 +83,8 @@ Describe how the concept appears in a production-style workflow.
 ## Question and Answer Rules
 
 - Do not separate all questions from all answers.
+- Do not jump into interview practice before explaining the concept.
+- The `Core Ideas and Examples` section must teach the parts of the concept clearly.
 - Each question must be followed immediately by its answer and example.
 - Avoid generic answers that could apply to any topic.
 - Make answers specific to the concept.
@@ -121,6 +127,7 @@ Avoid:
 Before submitting, check that:
 
 - C# examples compile conceptually and use modern .NET style.
+- The concept is explained before the interview questions begin.
 - ASP.NET Core examples use appropriate status codes, request/response DTOs, validation, and error handling.
 - EF Core examples mention query shape, tracking, transactions, migrations, or concurrency when relevant.
 - Azure examples mention configuration, managed identity, Key Vault, monitoring, scaling, cost, or failure handling when relevant.
@@ -160,6 +167,7 @@ When improving an existing topic:
 Before opening a pull request, confirm:
 
 - [ ] The content follows the topic page format.
+- [ ] The `Core Ideas and Examples` section explains the concept enough for a beginner to start practicing.
 - [ ] Every interview question has one answer and one example directly below it.
 - [ ] The answer is specific to the topic.
 - [ ] Code examples are short, realistic, and readable.

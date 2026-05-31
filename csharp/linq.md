@@ -8,6 +8,19 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+LINQ is a query API for filtering, projecting, grouping, and sorting data.
+
+- **`Where`:** Filters data.
+- **`Select`:** Projects data into another shape.
+- **`OrderBy`:** Sorts data.
+- **`GroupBy`:** Groups data by a key.
+- **Deferred execution:** Many LINQ queries run only when enumerated.
+- **`IQueryable`:** Can be translated by EF Core into SQL.
+
+Example: filter orders by customer, sort by creation date, project to `OrderSummaryDto`, and call `ToListAsync()` only after the query shape is complete.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **LINQ** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Configuration controls environment behavior; secrets protect sensitive values.
+
+- **Configuration:** Non-secret settings such as feature flags, URLs, limits, and environment names.
+- **Secrets:** Passwords, API keys, certificates, and connection strings.
+- **Separation:** Do not hard-code environment-specific values.
+- **Key Vault:** Store sensitive values securely.
+- **Managed identity:** Avoid storing credentials to access secrets.
+
+Example: store `PaymentProvider:BaseUrl` as configuration and `PaymentProvider:ApiKey` in Key Vault.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Azure Configuration and Secrets Management** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

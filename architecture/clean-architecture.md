@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Clean Architecture separates business rules from frameworks. The center of the application contains domain models and use cases; outer layers contain ASP.NET Core, EF Core, Azure SDKs, messaging, and other infrastructure.
+
+- **Domain layer:** Business concepts and rules, such as `Order`, `Money`, `OrderStatus`, and `Order.Confirm()`.
+- **Application layer:** Use cases that orchestrate work, such as `ConfirmOrderHandler` or `CreateInvoiceService`.
+- **Infrastructure layer:** Database, message broker, email, file storage, and external API implementations.
+- **Presentation layer:** Controllers or Minimal API endpoints that translate HTTP requests into application calls.
+
+Example: an order controller should not contain payment rules or SQL statements. It should call a use case. The use case should coordinate the domain model and abstractions such as `IOrderRepository` or `IPaymentGateway`. EF Core and Azure SDK details stay in infrastructure.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Clean Architecture** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

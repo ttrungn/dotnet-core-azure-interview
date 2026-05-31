@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+Input validation protects the application from invalid or unsafe client input before business work begins.
+
+- **Shape validation:** Required fields, string lengths, formats, and numeric ranges.
+- **Business validation:** Rules such as "quantity must be available in inventory".
+- **Model binding:** ASP.NET Core maps request data into DTOs.
+- **Error response:** Validation failures should return clear `400 Bad Request` details.
+- **Security:** Validation should not replace authorization or server-side business rules.
+
+Example: `CreateOrderRequest` should require a customer id and at least one line, while inventory availability is checked in the application layer.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Input Validation** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

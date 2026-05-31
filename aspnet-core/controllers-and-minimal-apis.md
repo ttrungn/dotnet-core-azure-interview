@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+Controllers and Minimal APIs are two ways to define HTTP endpoints in ASP.NET Core.
+
+- **Controllers:** Use classes, attributes, model binding, filters, and action methods. Good for larger APIs with many endpoints.
+- **Minimal APIs:** Define routes directly in code. Good for small services, simple endpoints, or lightweight APIs.
+- **Shared responsibility:** Both should keep business logic out of endpoint code.
+- **DTOs:** Both should use request and response models instead of exposing EF entities.
+- **Testing:** Both can be tested with integration tests using `WebApplicationFactory`.
+
+Example: a large order API may use controllers for structure, while a small health or webhook service may use Minimal APIs.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Controllers and Minimal APIs** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

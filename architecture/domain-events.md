@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+A domain event records something important that already happened in the business domain.
+
+- **Past-tense fact:** Use names such as `OrderPlaced`, `PaymentCaptured`, or `InvoiceOverdue`.
+- **Decoupling:** The domain can record the event without directly sending email or calling another service.
+- **Side effects:** Handlers can send notifications, update read models, or publish integration messages.
+- **Timing:** Decide whether handlers run inside the same transaction or after the transaction commits.
+
+Example: when an order is confirmed, the domain raises `OrderConfirmed`. A handler can send a confirmation email without putting email logic inside the `Order` entity.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Domain Events** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

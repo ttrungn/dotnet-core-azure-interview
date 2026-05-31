@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+An aggregate is a group of domain objects that must stay consistent together. The aggregate root is the only object outside code should use directly.
+
+- **Aggregate root:** The main entry point, such as `Order`.
+- **Child objects:** Objects controlled by the root, such as `OrderLine`.
+- **Invariant:** A rule that must always be true, such as "a confirmed order cannot be edited".
+- **Transaction boundary:** Changes inside one aggregate are usually saved together.
+
+Example: callers should not modify `OrderLine` directly from outside the `Order`. They should call `order.AddLine(...)`, so the order can enforce quantity, status, and pricing rules.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Aggregates** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

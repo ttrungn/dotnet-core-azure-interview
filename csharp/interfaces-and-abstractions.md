@@ -8,6 +8,17 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+An interface defines what a dependency can do, not how it does it.
+
+- **Contract:** `IPaymentGateway` says payment can be captured.
+- **Implementation:** `StripePaymentGateway` contains Stripe-specific code.
+- **Testing:** A fake implementation can simulate success, decline, or timeout.
+- **Boundary:** Interfaces are most useful around infrastructure, time, file systems, queues, and external APIs.
+
+Example: inject `IClock` into an order expiration service so tests can control the current time without waiting in real time.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Interfaces and Abstractions** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

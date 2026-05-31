@@ -8,6 +8,18 @@ For data access work, focus on how this concept affects correctness, query shape
 
 When discussing it in an interview, use a concrete workflow such as placing an order, updating inventory, or loading a dashboard. Explain the data risk, the implementation choice, how you would verify the generated SQL or migration, and what monitoring or tests would catch regressions.
 
+## Core Ideas and Examples
+
+A repository around EF Core should express meaningful persistence operations, not just wrap every EF method.
+
+- **Useful repository:** Loads and saves aggregates with domain-specific methods.
+- **Risky generic repository:** Hides EF features such as projections, includes, tracking, and transactions.
+- **Read models:** Reporting queries may be clearer as direct query services returning DTOs.
+- **Testing:** Repositories should be tested against realistic database behavior when SQL matters.
+- **Boundary:** Use repositories to protect domain code from persistence details when the boundary is valuable.
+
+Example: `IOrderRepository.GetByIdAsync(orderId)` is useful for an aggregate. `GetAll()` on a generic repository can cause performance problems.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Repository Pattern with EF Core** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

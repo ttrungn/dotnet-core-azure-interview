@@ -8,6 +8,27 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+HTTP methods describe the kind of operation a client wants to perform. Status codes describe the result.
+
+- **GET:** Read a resource. Example: `GET /orders/{id}`.
+- **POST:** Create or start a process. Example: `POST /orders`.
+- **PUT:** Replace a resource.
+- **PATCH:** Partially update a resource.
+- **DELETE:** Remove or cancel a resource when the business model supports it.
+- **200:** Success with a response body.
+- **201:** Created a new resource.
+- **204:** Success with no response body.
+- **400:** Invalid request.
+- **401:** Not authenticated.
+- **403:** Authenticated but not allowed.
+- **404:** Resource not found.
+- **409:** Conflict, such as duplicate payment capture.
+- **500:** Unexpected server failure.
+
+Example: creating an order returns `201 Created`; confirming an already cancelled order may return `409 Conflict`.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **HTTP Methods and Status Codes** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

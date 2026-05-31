@@ -8,6 +8,18 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+SOLID is a set of five object-oriented design principles. The goal is not to memorize the letters; the goal is to design classes and services that can change without breaking unrelated behavior.
+
+- **S - Single Responsibility Principle:** A class should have one main reason to change. Example: `OrderPricingService` calculates totals, while `OrderEmailService` sends confirmation emails. Combining pricing, persistence, and email in one class makes every change risky.
+- **O - Open/Closed Principle:** Code should be open for extension but closed for modification. Example: add a new `IPaymentMethod` implementation for bank transfer instead of editing a large `switch` statement every time a payment type is added.
+- **L - Liskov Substitution Principle:** A derived type should be usable anywhere its base type is expected without surprising behavior. Example: if `CachedProductRepository` implements `IProductRepository`, callers should not need special rules to use it safely instead of `SqlProductRepository`.
+- **I - Interface Segregation Principle:** Prefer small, focused interfaces over large interfaces that force classes to implement methods they do not need. Example: split `IOrderOperations` into `IOrderReader`, `IOrderWriter`, and `IOrderCanceller` when consumers only need part of the behavior.
+- **D - Dependency Inversion Principle:** High-level business code should depend on abstractions, not concrete infrastructure. Example: `CheckoutService` depends on `IPaymentGateway`, while `StripePaymentGateway` implements the actual provider call.
+
+In a .NET API, SOLID usually appears in controllers, services, domain models, validators, repositories, and integrations. Good SOLID design should make code easier to test and change; bad SOLID usage creates unnecessary interfaces and layers with no practical benefit.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **SOLID Principles** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

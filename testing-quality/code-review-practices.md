@@ -8,6 +8,18 @@ For testing and quality work, focus on how this concept improves confidence in b
 
 When discussing it in an interview, describe what you would test or inspect, what feedback the practice gives the team, and how it fits into local development, pull requests, and CI. Also mention the trade-off: quality work should reduce risk without slowing delivery through unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Code review is a quality practice for catching problems and sharing understanding before production.
+
+- **Correctness:** Does the code do the right thing?
+- **Security:** Are auth, secrets, input, and data exposure handled safely?
+- **Maintainability:** Can another developer understand and change it?
+- **Testing:** Are important behaviors and edge cases covered?
+- **Operations:** Are logging, monitoring, migration, and rollback concerns addressed?
+
+Example: for a billing change, review rounding, idempotency, failure handling, and tests before discussing naming preferences.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Code Review Practices** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

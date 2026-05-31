@@ -8,6 +8,18 @@ For data access work, focus on how this concept affects correctness, query shape
 
 When discussing it in an interview, use a concrete workflow such as placing an order, updating inventory, or loading a dashboard. Explain the data risk, the implementation choice, how you would verify the generated SQL or migration, and what monitoring or tests would catch regressions.
 
+## Core Ideas and Examples
+
+Optimistic concurrency detects conflicting updates without locking records for a long time.
+
+- **Assumption:** Conflicts are possible but not constant.
+- **Concurrency token:** A row version or timestamp changes whenever the row changes.
+- **Conflict detection:** Save fails if someone else changed the row first.
+- **Resolution:** Retry, merge, or return a conflict response.
+- **User impact:** The API should explain that data changed and the user may need to refresh.
+
+Example: two support agents edit the same order note. The second save detects the stale version and returns `409 Conflict`.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Optimistic Concurrency** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

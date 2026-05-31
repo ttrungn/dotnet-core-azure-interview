@@ -8,6 +8,18 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Azure SQL is managed SQL Server-compatible relational database hosting.
+
+- **Relational data:** Good for structured data and transactional consistency.
+- **Backups:** Managed backups and point-in-time restore are available.
+- **Scaling:** Choose compute and storage tiers based on workload.
+- **Security:** Use firewall rules, private endpoints, encryption, and managed identity where possible.
+- **Monitoring:** Track DTU/vCore usage, deadlocks, query duration, and connection errors.
+
+Example: store orders and payments in Azure SQL when the system needs transactions, relational constraints, and SQL querying.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Azure SQL** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

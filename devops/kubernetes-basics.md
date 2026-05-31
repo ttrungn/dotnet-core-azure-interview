@@ -8,6 +8,19 @@ For DevOps work, focus on how this concept changes delivery safety, environment 
 
 When discussing it in an interview, explain the pipeline or runtime step, what can fail, how the team detects failure, and how the system recovers. Include the trade-off between automation, operational complexity, cost, and team maturity.
 
+## Core Ideas and Examples
+
+Kubernetes orchestrates containers across a cluster.
+
+- **Pod:** Smallest deployable unit, usually one application container plus helpers.
+- **Deployment:** Manages replicas and rolling updates.
+- **Service:** Provides stable networking to pods.
+- **Ingress:** Routes external HTTP traffic.
+- **ConfigMap and Secret:** Provide configuration and sensitive values.
+- **Probes:** Liveness and readiness checks control restarts and traffic routing.
+
+Example: run three replicas of an order API, expose them through a service, and use readiness probes so traffic only reaches healthy pods.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Kubernetes Basics** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

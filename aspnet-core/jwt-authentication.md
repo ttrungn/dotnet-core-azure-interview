@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+JWT authentication uses signed tokens to carry identity and claims from an identity provider to an API.
+
+- **Token issuer:** The trusted identity provider that creates the token.
+- **Audience:** The API the token is intended for.
+- **Signature:** Proves the token was issued by a trusted authority and was not changed.
+- **Claims:** User id, roles, scopes, tenant, or permissions.
+- **Expiration:** Tokens should expire; refresh behavior is handled outside the API or by an auth flow.
+
+Example: an API validates a bearer token, reads the user id claim, and authorizes access to `/orders/{orderId}` based on ownership or role.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **JWT Authentication** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

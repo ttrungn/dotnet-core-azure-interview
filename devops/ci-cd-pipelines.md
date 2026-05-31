@@ -8,6 +8,18 @@ For DevOps work, focus on how this concept changes delivery safety, environment 
 
 When discussing it in an interview, explain the pipeline or runtime step, what can fail, how the team detects failure, and how the system recovers. Include the trade-off between automation, operational complexity, cost, and team maturity.
 
+## Core Ideas and Examples
+
+CI/CD pipelines automate the path from code change to production release.
+
+- **Continuous Integration:** Build and test every change.
+- **Continuous Delivery/Deployment:** Package and release through environments.
+- **Quality gates:** Tests, static analysis, security scanning, and review checks.
+- **Artifact promotion:** Build once and promote the same artifact.
+- **Auditability:** Know what version is deployed and who approved it.
+
+Example: a pull request runs tests; merging to main builds a Docker image; release deploys the image to staging and then production.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **CI/CD Pipelines** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

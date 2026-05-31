@@ -8,6 +8,18 @@ For data access work, focus on how this concept affects correctness, query shape
 
 When discussing it in an interview, use a concrete workflow such as placing an order, updating inventory, or loading a dashboard. Explain the data risk, the implementation choice, how you would verify the generated SQL or migration, and what monitoring or tests would catch regressions.
 
+## Core Ideas and Examples
+
+DbContext lifetime controls how long EF Core tracks entities and database work.
+
+- **Scoped per request:** The usual ASP.NET Core lifetime for `DbContext`.
+- **Not thread-safe:** Do not share one context across concurrent operations.
+- **Tracking scope:** A context tracks entities loaded during its lifetime.
+- **Unit of work:** A request or handler can load, change, and save entities through one context.
+- **Disposal:** DI disposes scoped contexts at the end of the request.
+
+Example: register `OrdersDbContext` as scoped so order creation uses one context during the request and then disposes it.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **DbContext Lifetime** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

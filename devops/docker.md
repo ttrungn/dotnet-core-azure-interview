@@ -8,6 +8,18 @@ For DevOps work, focus on how this concept changes delivery safety, environment 
 
 When discussing it in an interview, explain the pipeline or runtime step, what can fail, how the team detects failure, and how the system recovers. Include the trade-off between automation, operational complexity, cost, and team maturity.
 
+## Core Ideas and Examples
+
+Docker packages an application and its runtime dependencies into an image.
+
+- **Image:** Immutable package built from a Dockerfile.
+- **Container:** Running instance of an image.
+- **Dockerfile:** Defines build steps, base image, copied files, and entry point.
+- **Registry:** Stores images, such as Azure Container Registry.
+- **Configuration:** Runtime settings should come from environment variables or secret stores.
+
+Example: package an ASP.NET Core API into an image so it runs the same way on a developer machine, CI agent, and Kubernetes cluster.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Docker** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

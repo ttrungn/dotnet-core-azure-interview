@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+Logging and monitoring make production behavior visible after deployment.
+
+- **Structured logs:** Use named fields such as `OrderId`, `CustomerId`, and `CorrelationId`.
+- **Metrics:** Track counts, durations, failure rates, and queue depth.
+- **Traces:** Follow one request across API, database, and external dependencies.
+- **Alerts:** Notify the team when error rate, latency, or dependency failures cross a threshold.
+- **Privacy:** Do not log passwords, tokens, or sensitive personal data.
+
+Example: when payment capture fails, log the order id, provider status, correlation id, and failure category so support can investigate.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Logging and Monitoring** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

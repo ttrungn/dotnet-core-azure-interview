@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+The ASP.NET Core request pipeline is the ordered chain of middleware that handles every HTTP request.
+
+- **Middleware order matters:** Authentication must run before authorization.
+- **Before endpoint:** Middleware can read headers, authenticate users, log requests, or handle exceptions.
+- **Endpoint execution:** Controllers or Minimal APIs run after routing chooses the endpoint.
+- **After endpoint:** Middleware can add response headers, log duration, or handle errors.
+- **Short-circuiting:** Middleware can stop the request early, such as returning `401 Unauthorized`.
+
+Example: a request may pass through exception handling, HTTPS redirection, routing, authentication, authorization, endpoint execution, and response logging.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **ASP.NET Core Request Pipeline** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

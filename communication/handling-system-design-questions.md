@@ -8,6 +8,18 @@ For communication topics, focus on how the answer is structured, what evidence s
 
 When practicing it, use a real project-style situation with context, options, decision, trade-off, and result. Keep the language specific enough for engineers while still understandable to product owners, managers, or non-specialist interviewers.
 
+## Core Ideas and Examples
+
+System design questions test how you structure a solution under constraints.
+
+- **Clarify requirements:** Users, features, scale, data, and reliability needs.
+- **Define core flows:** Request paths such as checkout, payment, and order history.
+- **Choose components:** API, database, cache, queue, storage, and workers.
+- **Discuss data:** Ownership, consistency, indexes, and retention.
+- **Handle failure:** Retries, idempotency, timeouts, monitoring, and recovery.
+
+Example: for an order system, explain order creation, payment capture, inventory updates, event publishing, and how support sees failed orders.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Handling System Design Questions** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Deployment to Azure means packaging, configuring, releasing, and verifying a .NET workload in Azure.
+
+- **Artifact:** Build once in CI.
+- **Configuration:** Use app settings, App Configuration, and Key Vault per environment.
+- **Identity:** Use managed identity where possible.
+- **Release:** Deploy to App Service, Functions, containers, or Kubernetes depending on workload.
+- **Verification:** Run smoke tests and monitor telemetry after deployment.
+
+Example: a pipeline deploys an order API to a staging slot, verifies health checks, swaps to production, and watches Application Insights alerts.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Deployment to Azure** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Azure Key Vault stores secrets, keys, and certificates outside application code.
+
+- **Secrets:** Connection strings, API keys, and passwords.
+- **Keys:** Cryptographic keys used by applications or services.
+- **Certificates:** TLS or client certificates.
+- **Managed identity:** Lets Azure-hosted apps access Key Vault without storing credentials.
+- **Access policy/RBAC:** Controls which app or user can read each secret.
+
+Example: an App Service uses managed identity to read a payment provider API key from Key Vault at startup.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Azure Key Vault** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For data access work, focus on how this concept affects correctness, query shape
 
 When discussing it in an interview, use a concrete workflow such as placing an order, updating inventory, or loading a dashboard. Explain the data risk, the implementation choice, how you would verify the generated SQL or migration, and what monitoring or tests would catch regressions.
 
+## Core Ideas and Examples
+
+Entity Framework Core is an ORM that maps C# objects to database tables and translates LINQ queries to SQL.
+
+- **DbContext:** Main object for querying and saving data.
+- **DbSet:** Represents a table-like collection, such as `Orders`.
+- **Change tracking:** EF tracks entity changes and saves them with `SaveChangesAsync()`.
+- **LINQ translation:** Queries become SQL when executed.
+- **Migrations:** Version schema changes in code.
+
+Example: `_dbContext.Orders.Where(x => x.CustomerId == id).ToListAsync()` becomes a SQL query against the orders table.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Entity Framework Core** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

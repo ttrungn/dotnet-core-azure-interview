@@ -8,6 +8,18 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Azure Service Bus is enterprise messaging for decoupling services and handling asynchronous work reliably.
+
+- **Queue:** One message is processed by one consumer.
+- **Topic and subscription:** Publish once and let multiple subscribers receive copies.
+- **Dead-letter queue:** Stores messages that cannot be processed successfully.
+- **Lock and completion:** Consumers lock, process, and complete messages.
+- **Duplicate detection and sessions:** Help with idempotency and ordered processing scenarios.
+
+Example: after checkout, publish `OrderPlaced` to a topic. Billing, inventory, and notification subscriptions can process their own work independently.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Azure Service Bus** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

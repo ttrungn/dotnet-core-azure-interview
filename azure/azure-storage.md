@@ -8,6 +8,18 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Azure Storage provides durable cloud storage for several data shapes.
+
+- **Blob storage:** Files, images, documents, exports, and backups.
+- **Queue storage:** Simple queue messaging with fewer enterprise features than Service Bus.
+- **Table storage:** Simple key-value style NoSQL storage.
+- **File storage:** Managed file shares.
+- **Access control:** Use managed identity, SAS tokens, and least privilege.
+
+Example: store invoice PDFs in Blob Storage and keep only the blob URL or key in the application database.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Azure Storage** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

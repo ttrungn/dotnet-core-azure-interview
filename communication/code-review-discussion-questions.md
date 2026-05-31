@@ -8,6 +8,18 @@ For communication topics, focus on how the answer is structured, what evidence s
 
 When practicing it, use a real project-style situation with context, options, decision, trade-off, and result. Keep the language specific enough for engineers while still understandable to product owners, managers, or non-specialist interviewers.
 
+## Core Ideas and Examples
+
+Code review discussion tests whether you can reason about code constructively.
+
+- **Priority:** Correctness, security, data consistency, tests, and maintainability come before style.
+- **Evidence:** Explain the risk behind a comment.
+- **Tone:** Ask clear questions and avoid personal criticism.
+- **Trade-off:** Separate must-fix issues from follow-up improvements.
+- **Learning:** Use review to share context across the team.
+
+Example: instead of saying "this is bad," ask whether a payment retry can double-charge the customer and suggest an idempotency test.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Code Review Discussion Questions** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

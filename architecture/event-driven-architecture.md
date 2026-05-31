@@ -8,6 +8,18 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Event-driven architecture lets components publish and react to events asynchronously.
+
+- **Event:** A fact that happened, such as `OrderPlaced`.
+- **Publisher:** The component that emits the event.
+- **Consumer:** The component that reacts to the event.
+- **Broker:** Infrastructure such as Azure Service Bus that stores and delivers messages.
+- **Eventual consistency:** Consumers may update later, not in the same request.
+
+Example: after checkout, the Order API publishes `OrderPlaced`. Billing, Inventory, and Notification consumers process their own work independently. The trade-off is that status and retries must be designed carefully.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Event-Driven Architecture** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

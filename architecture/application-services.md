@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Application services orchestrate use cases. They sit between controllers and domain/infrastructure code.
+
+- **Input coordination:** Receive a request or command from an API endpoint.
+- **Load data:** Use repositories or query services to load required state.
+- **Call domain logic:** Ask entities or domain services to enforce rules.
+- **Persist and integrate:** Save changes and call external dependencies through abstractions.
+
+Example: `PlaceOrderService` validates the request, loads inventory, creates an order, saves it, and publishes an event. It should coordinate the workflow, not hide all business rules inside itself.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Application Services** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

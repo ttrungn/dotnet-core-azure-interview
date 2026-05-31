@@ -8,6 +8,18 @@ For DevOps work, focus on how this concept changes delivery safety, environment 
 
 When discussing it in an interview, explain the pipeline or runtime step, what can fail, how the team detects failure, and how the system recovers. Include the trade-off between automation, operational complexity, cost, and team maturity.
 
+## Core Ideas and Examples
+
+Health checks expose whether an application can run and serve traffic.
+
+- **Liveness:** Is the process alive, or should the platform restart it?
+- **Readiness:** Can the app receive traffic right now?
+- **Dependency checks:** SQL, Service Bus, storage, or external APIs may be critical.
+- **Startup checks:** Has the app initialized successfully?
+- **Monitoring:** Health endpoints should feed load balancers, Kubernetes, or App Service checks.
+
+Example: readiness should fail if the API cannot reach Azure SQL, so traffic does not go to an instance that cannot serve order requests.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Health Checks** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

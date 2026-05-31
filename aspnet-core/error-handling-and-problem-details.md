@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+Problem Details is a standard JSON shape for API errors. It helps clients handle failures consistently.
+
+- **Common fields:** `type`, `title`, `status`, `detail`, and `instance`.
+- **Validation errors:** Include field-level information when input is invalid.
+- **Business conflicts:** Use `409 Conflict` for state conflicts such as duplicate payment capture.
+- **Unexpected errors:** Return safe generic messages while logging internal details.
+- **Global handling:** Middleware can convert unhandled exceptions into consistent responses.
+
+Example: if an order id does not exist, return `404` with a client-safe Problem Details body, not a stack trace.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Error Handling and Problem Details** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

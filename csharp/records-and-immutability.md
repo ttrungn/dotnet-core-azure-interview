@@ -8,6 +8,18 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+Records are data-focused types with value-based equality. Immutability means data cannot be changed after creation.
+
+- **Record DTO:** Good for request and response shapes.
+- **Value equality:** Two records with the same values compare as equal.
+- **`with` expression:** Creates a copy with selected changes.
+- **Immutable value object:** Good for `Money`, `Address`, or `DateRange`.
+- **Entity warning:** Entities with identity and lifecycle are usually better as classes.
+
+Example: `Money(100, "USD")` can be a record value object, but `Order` should usually be a class because it changes status over time.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Records and Immutability** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,18 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+Nullable reference types let C# express whether a reference should be null.
+
+- **Non-nullable:** `string Name` means code expects a value.
+- **Nullable:** `string? Email` means null is allowed.
+- **Compiler warnings:** The compiler warns when null might be used unsafely.
+- **Null-forgiving operator:** `!` suppresses warnings but does not add runtime safety.
+- **External input:** API requests and database values still need validation.
+
+Example: `Task<Customer?> FindCustomerAsync(Guid id)` clearly tells callers that the customer may not exist.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Nullable Reference Types** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

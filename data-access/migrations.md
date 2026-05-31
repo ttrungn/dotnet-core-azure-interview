@@ -8,6 +8,18 @@ For data access work, focus on how this concept affects correctness, query shape
 
 When discussing it in an interview, use a concrete workflow such as placing an order, updating inventory, or loading a dashboard. Explain the data risk, the implementation choice, how you would verify the generated SQL or migration, and what monitoring or tests would catch regressions.
 
+## Core Ideas and Examples
+
+Migrations version database schema changes alongside application code.
+
+- **Model change:** Add or modify an entity property.
+- **Migration file:** EF generates operations such as `AddColumn` or `CreateIndex`.
+- **SQL review:** Review generated SQL before production deployment.
+- **Data safety:** Plan defaults, backfills, nullable columns, and rollback/forward fixes.
+- **Deployment:** Apply migrations in a controlled release process.
+
+Example: adding `Order.Status` may require a default value for existing orders and a deployment plan that keeps old code compatible during rollout.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Migrations** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

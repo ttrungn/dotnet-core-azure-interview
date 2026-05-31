@@ -8,6 +8,18 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Domain-Driven Design, or DDD, focuses software design around the business domain. It is most useful when business rules are complex enough that simple CRUD code becomes hard to maintain.
+
+- **Ubiquitous language:** Developers and business people use the same terms, such as order, shipment, invoice, refund, and credit limit.
+- **Entity:** Has identity over time, such as `Order` or `Customer`.
+- **Value object:** Defined by its values, such as `Money`, `Address`, or `DateRange`.
+- **Aggregate:** A consistency boundary that protects invariants, such as an `Order` with its order lines.
+- **Bounded context:** A boundary where a model has a specific meaning, such as Sales, Billing, or Shipping.
+
+Example: `Customer` in Sales may mean a buyer with orders, while `Customer` in Support may mean a person with tickets. DDD helps avoid one confused model trying to satisfy every department.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Domain-Driven Design** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+A monolith packages the application as one deployable unit. Microservices split the system into multiple independently deployable services.
+
+- **Monolith strength:** Simpler deployment, easier debugging, simpler transactions, and lower operational cost.
+- **Monolith weakness:** Can become tightly coupled if boundaries are not maintained.
+- **Microservices strength:** Independent deployment, scaling, and team ownership.
+- **Microservices weakness:** Distributed failures, network latency, data consistency challenges, and higher DevOps needs.
+
+Example: a modular monolith with clear Orders, Billing, and Shipping modules may be better for one team. Microservices become more attractive when teams need independent release cycles and clear service ownership.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Monolith vs Microservices** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

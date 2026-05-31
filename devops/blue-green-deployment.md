@@ -8,6 +8,18 @@ For DevOps work, focus on how this concept changes delivery safety, environment 
 
 When discussing it in an interview, explain the pipeline or runtime step, what can fail, how the team detects failure, and how the system recovers. Include the trade-off between automation, operational complexity, cost, and team maturity.
 
+## Core Ideas and Examples
+
+Blue-green deployment uses two production-like environments: one active and one idle/new.
+
+- **Blue:** Current production environment.
+- **Green:** New version prepared and tested before traffic moves.
+- **Traffic switch:** Move users from blue to green quickly.
+- **Rollback:** Switch traffic back if the new version fails.
+- **Data caution:** Database changes must be backward compatible across both versions.
+
+Example: deploy a new order API version to the green slot, run smoke tests, swap traffic, and swap back if error rate increases.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Blue-Green Deployment** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

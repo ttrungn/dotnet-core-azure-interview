@@ -8,6 +8,18 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Azure Functions runs event-driven code without managing servers.
+
+- **Triggers:** HTTP, timer, queue, Service Bus, Event Grid, and blob triggers start function execution.
+- **Bindings:** Input and output bindings simplify access to services.
+- **Consumption model:** Can scale based on events and reduce idle cost.
+- **Cold start:** Some hosting plans may delay first execution after idle time.
+- **Use cases:** Background jobs, scheduled tasks, integrations, and lightweight APIs.
+
+Example: a timer-triggered function can send overdue invoice reminders every morning, while a Service Bus trigger processes order events.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Azure Functions** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

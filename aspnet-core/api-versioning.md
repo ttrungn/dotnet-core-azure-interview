@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+API versioning lets an API evolve without breaking existing clients unexpectedly.
+
+- **Why version:** Mobile apps, partner integrations, and frontend clients may not update at the same time.
+- **Additive change:** Adding an optional response field usually does not require a new version.
+- **Breaking change:** Renaming fields, changing required input, or changing behavior may require a new version.
+- **Version styles:** Common options include URL versioning, query versioning, and header versioning.
+- **Deprecation:** Old versions should have a migration path and removal timeline.
+
+Example: keep `/api/v1/orders` working while introducing `/api/v2/orders` with a different response contract.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **API Versioning** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

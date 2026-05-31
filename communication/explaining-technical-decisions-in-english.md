@@ -8,6 +8,19 @@ For communication topics, focus on how the answer is structured, what evidence s
 
 When practicing it, use a real project-style situation with context, options, decision, trade-off, and result. Keep the language specific enough for engineers while still understandable to product owners, managers, or non-specialist interviewers.
 
+## Core Ideas and Examples
+
+Explaining technical decisions in English means making your reasoning easy to follow.
+
+- **Context:** What problem existed?
+- **Options:** What alternatives did you consider?
+- **Decision:** What did you choose?
+- **Reason:** Why did it fit the constraints?
+- **Trade-off:** What cost did you accept?
+- **Result:** What improved or what did you learn?
+
+Example: explain choosing Service Bus by saying checkout needed fast responses and reliable billing retries, while accepting eventual consistency and adding monitoring.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Explaining Technical Decisions in English** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

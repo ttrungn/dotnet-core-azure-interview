@@ -8,6 +8,18 @@ For testing and quality work, focus on how this concept improves confidence in b
 
 When discussing it in an interview, describe what you would test or inspect, what feedback the practice gives the team, and how it fits into local development, pull requests, and CI. Also mention the trade-off: quality work should reduce risk without slowing delivery through unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Refactoring changes internal structure without changing observable behavior.
+
+- **Purpose:** Improve readability, design, testability, or duplication.
+- **Safety:** Add tests around current behavior before risky refactors.
+- **Small steps:** Move code gradually instead of rewriting everything.
+- **No behavior change:** New features and refactoring should be separated when possible.
+- **Verification:** Run tests and review behavior after each change.
+
+Example: move pricing logic out of a controller into `OrderPricingService` while keeping API responses the same.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Refactoring** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

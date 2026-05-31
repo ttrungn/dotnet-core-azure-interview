@@ -8,6 +8,19 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Application Insights collects telemetry so teams can understand production behavior.
+
+- **Requests:** Incoming HTTP calls and duration.
+- **Dependencies:** SQL, HTTP, storage, and messaging calls.
+- **Exceptions:** Unhandled and logged failures.
+- **Traces:** Structured application logs.
+- **Metrics:** Custom and platform measurements.
+- **Alerts:** Notify the team when failures or latency exceed thresholds.
+
+Example: when checkout slows down, dependency telemetry can show whether SQL, payment provider calls, or Service Bus publishing is the bottleneck.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Application Insights** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

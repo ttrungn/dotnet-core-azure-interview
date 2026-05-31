@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+Microservices split a system into independently deployable services aligned to business capabilities.
+
+- **Service boundary:** A service owns a business capability, such as Orders, Billing, Shipping, or Identity.
+- **Data ownership:** Each service should own its data instead of sharing database tables directly.
+- **Independent deployment:** Teams can release one service without redeploying the whole system.
+- **Operational cost:** More services mean more monitoring, networking, versioning, and failure handling.
+
+Example: an Order service publishes `OrderPlaced`; a Billing service consumes it and captures payment. This reduces direct coupling but introduces eventual consistency and message handling complexity.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Microservices Architecture** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

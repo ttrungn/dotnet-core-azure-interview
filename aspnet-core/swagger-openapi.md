@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+OpenAPI describes an API contract in a machine-readable format. Swagger UI is a common way to view and test that contract.
+
+- **Contract:** Routes, methods, parameters, request bodies, responses, and status codes.
+- **Documentation:** Helps frontend, mobile, QA, and partner teams understand the API.
+- **Client generation:** Teams can generate typed clients from the OpenAPI document.
+- **Security schemes:** Document bearer tokens, API keys, or OAuth flows.
+- **Accuracy:** The document must match real behavior to be useful.
+
+Example: an OpenAPI definition for `POST /orders` should show `CreateOrderRequest`, `201 Created`, `400` validation errors, and authentication requirements.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Swagger and OpenAPI** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

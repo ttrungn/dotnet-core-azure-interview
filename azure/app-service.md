@@ -8,6 +8,19 @@ For Azure work, focus on the production responsibility this service or practice 
 
 When discussing it in an interview, describe the workload, configuration, identity model, failure handling, monitoring, and cost or scaling trade-off. The goal is to show that you can run the .NET system reliably in Azure, not just name the service.
 
+## Core Ideas and Examples
+
+Azure App Service hosts web apps and APIs without managing virtual machines directly.
+
+- **Hosting:** Runs ASP.NET Core APIs and web apps.
+- **Deployment slots:** Support staged deployment and slot swaps.
+- **Scaling:** Scale up by size or out by instance count.
+- **Configuration:** App settings override environment-specific values.
+- **TLS and domains:** Built-in support for HTTPS and custom domains.
+- **Diagnostics:** Integrates with logs and Application Insights.
+
+Example: deploy an order API to App Service, use a staging slot for release validation, then swap to production after smoke tests pass.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Azure App Service** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

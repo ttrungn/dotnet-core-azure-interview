@@ -8,6 +8,18 @@ For ASP.NET Core API work, focus on how this concept affects request handling, e
 
 When discussing it in an interview, use a realistic backend example such as orders, payments, inventory, or user access. Explain the happy path, failure path, testing approach, and trade-off so the answer sounds like production experience rather than documentation recall.
 
+## Core Ideas and Examples
+
+Authentication and authorization are related but different security concerns.
+
+- **Authentication:** Proves who the caller is.
+- **Authorization:** Decides what the caller can do.
+- **Claims:** Identity facts such as user id, role, tenant, or permission.
+- **Policies:** Named authorization rules, such as `CanApproveRefund`.
+- **Failure behavior:** Unauthenticated callers get `401`; authenticated callers without permission get `403`.
+
+Example: a support user may be authenticated but not authorized to approve refunds above a certain amount.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Authentication and Authorization** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

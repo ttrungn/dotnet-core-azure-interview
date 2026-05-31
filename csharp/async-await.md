@@ -8,6 +8,18 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+`async` and `await` let code wait for I/O without blocking the current thread.
+
+- **I/O-bound work:** Database calls, HTTP calls, storage, queues, and file operations are good async candidates.
+- **CPU-bound work:** Heavy calculations do not automatically become faster with async.
+- **`Task` and `Task<T>`:** Represent asynchronous operations.
+- **Cancellation:** Pass `CancellationToken` through database and HTTP calls.
+- **Async all the way:** Avoid blocking with `.Result` or `.Wait()`.
+
+Example: `await _dbContext.Orders.SingleOrDefaultAsync(x => x.Id == id, ct)` lets ASP.NET Core reuse the request thread while SQL Server is working.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Async and Await** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

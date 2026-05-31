@@ -8,6 +8,17 @@ For architecture and design work, focus on the boundary this concept creates, th
 
 When discussing it in an interview, connect the concept to a realistic service design decision. Describe what code would live where, how the design would be tested, what operational or delivery risk it reduces, and when the extra structure would become unnecessary ceremony.
 
+## Core Ideas and Examples
+
+A repository provides persistence operations for domain or application code. It should express meaningful data access, not hide every database feature blindly.
+
+- **Domain-specific repository:** Methods describe business needs, such as `GetPendingOrdersForCustomerAsync`.
+- **Generic repository:** Reuses basic CRUD methods, but can hide EF Core capabilities when overused.
+- **Query responsibility:** Some read-heavy screens may be better served by direct query services returning DTOs.
+- **Persistence boundary:** Repositories can keep application code from depending directly on SQL or provider details.
+
+Example: `IOrderRepository.GetByIdAsync(orderId)` is useful for loading an aggregate. `IRepository<T>.GetAll()` can be dangerous when it encourages loading too much data.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Repositories** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.

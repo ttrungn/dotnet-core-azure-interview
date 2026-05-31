@@ -8,6 +8,17 @@ For C# backend work, focus on what this concept changes in everyday code: type s
 
 When discussing it in an interview, describe the problem it solves, where it appears in a typical ASP.NET Core application, and what can go wrong when it is overused or misunderstood. Mention how you would test code that uses it and how it affects maintainability for the next developer.
 
+## Core Ideas and Examples
+
+Object-oriented programming organizes code around objects that combine state and behavior.
+
+- **Encapsulation:** Hide internal state and expose safe operations. Example: `Order.Confirm()` validates before changing status.
+- **Abstraction:** Expose what callers need without exposing implementation details. Example: `IPaymentGateway` hides the payment provider SDK.
+- **Inheritance:** Share behavior through a base type when there is a true "is-a" relationship.
+- **Polymorphism:** Call the same contract while different implementations behave differently.
+
+Example: checkout can call `IPaymentProcessor.CaptureAsync()` without knowing whether the implementation uses Stripe, Adyen, or a fake test gateway.
+
 ## Why This Matters in a .NET Developer Interview
 
 This role expects a developer who can build maintainable APIs and services using C#, ASP.NET Core, Azure, CI/CD, and modern engineering practices. **Object-Oriented Programming in C#** is likely to appear because it shows whether you can move beyond syntax and explain design decisions clearly in English.
