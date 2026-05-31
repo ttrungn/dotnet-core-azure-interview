@@ -25,36 +25,43 @@ Interviewers will listen for:
 - Keep business rules in services or domain models, not hidden inside controllers or EF queries.
 - For interviews, explain how the language feature helps reliability, testability, or maintainability.
 
-## Key Interview Questions
+## Interview Questions and Answers
 
-| # | Level | Question |
-|---|---|---|
-| 1 | Basic | What is Dependency Injection, and where have you used it in a .NET backend project? |
-| 2 | Basic | What problem does Dependency Injection solve for an API or business application? |
-| 3 | Intermediate | How would you implement or apply Dependency Injection in an ASP.NET Core service? |
-| 4 | Intermediate | What are common mistakes developers make with Dependency Injection? |
-| 5 | Advanced | What trade-offs should a senior developer consider before using Dependency Injection? |
-| 6 | Real-world scenario | An order API is slow, hard to test, and risky to deploy. How could Dependency Injection help, and what would you check first? |
-| 7 | Advanced | How would you explain Dependency Injection to a product owner without using unnecessary jargon? |
-| 8 | Real-world scenario | How would you migrate an existing production feature toward better use of Dependency Injection without stopping delivery? |
+### 1. What is dependency injection?
 
-## Strong Sample Answers
+**Answer:** Dependency injection means a class receives the objects it needs instead of creating them itself. This keeps construction in one place, usually the ASP.NET Core composition root, and keeps business classes focused on behavior.
 
-1. **Definition answer:** DI means a class receives dependencies instead of creating them. This keeps services testable and avoids hard-coded infrastructure.
+**Example:** `PaymentService` receives `IPaymentGateway` through its constructor instead of creating `new StripeClient()` inside the method.
 
-2. **Lifetime answer:** In ASP.NET Core, transient is for lightweight stateless services, scoped is usually per request and fits EF Core DbContext, and singleton must not depend on scoped services.
+### 2. What problem does DI solve?
 
-3. **Testing answer:** I can replace a payment gateway or notification sender with a fake in tests while keeping the business service unchanged.
+**Answer:** DI reduces hard-coded dependencies. It makes services easier to test, configure, and replace because the class depends on a contract rather than a concrete implementation.
 
-4. **Design answer:** DI is not a reason to inject twenty services into one class. Too many dependencies usually means the class has too many responsibilities.
+**Example:** In tests, `PaymentService` can receive a fake gateway that returns a declined payment without calling a real provider.
 
-5. **Runtime answer:** I validate service registration at startup and watch for lifetime bugs, especially singleton services capturing request-specific state.
+### 3. What are the common ASP.NET Core service lifetimes?
 
-6. **Scenario answer:** If invoice submission directly creates an SMTP client and SQL connection, I would inject abstractions and move configuration to the composition root.
+**Answer:** `Transient` creates a new instance each time, `Scoped` creates one instance per request, and `Singleton` creates one instance for the application lifetime. The lifetime must match the dependency's state and thread-safety needs.
 
-7. **Communication answer:** I would describe Dependency Injection in business terms: it either lowers release risk, makes customer-facing behavior more predictable, or makes failures easier to recover from.
+**Example:** EF Core `DbContext` is usually scoped. A singleton service should not capture a scoped `DbContext`, because that can cause lifetime bugs and stale state.
 
-8. **Migration answer:** I would not rewrite everything. I would choose one high-value workflow, add tests, introduce the improved design behind the existing API contract, release incrementally, and monitor behavior after deployment.
+### 4. How do you register dependencies in ASP.NET Core?
+
+**Answer:** Register dependencies in `Program.cs` or extension methods called from startup. Keep registrations close to application composition, not scattered inside business logic.
+
+**Example:** `builder.Services.AddScoped<IPaymentGateway, StripePaymentGateway>();` tells ASP.NET Core how to build `IPaymentGateway` when a service asks for it.
+
+### 5. What are common DI mistakes?
+
+**Answer:** Common mistakes include injecting too many services into one class, using the wrong lifetime, injecting `IServiceProvider` everywhere, and hiding object creation so much that the dependency graph becomes hard to understand.
+
+**Example:** If a constructor has twelve dependencies, the class probably has too many responsibilities and should be split by use case.
+
+### 6. How would you apply DI to a legacy feature?
+
+**Answer:** I would start with one painful dependency, such as email, payment, file storage, or time. I would introduce a small interface, register the production implementation, add tests with a fake, and avoid rewriting unrelated code.
+
+**Example:** Replace direct `SmtpClient` creation inside `InvoiceService` with an injected `IEmailSender`, then test invoice behavior without sending real email.
 
 ## Coding Example
 
@@ -80,41 +87,19 @@ public sealed class PaymentService
 
 ## Real-World Scenario
 
-You are building an order management capability for a commerce platform.
-
-The business requires:
-- Customers can place orders and review order status.
-- Inventory, payment, and notification workflows must stay reliable.
-- Support staff need clear diagnostics when something fails.
-- The system must be deployable without long downtime.
-
-For **Dependency Injection**, a strong candidate should connect the concept to this business flow, explain the technical decision, call out the cost of the decision, and describe how they would verify it in production. The interviewer is usually looking for practical reasoning: not just what the concept means, but when it improves maintainability, reliability, performance, or team delivery.
+A checkout workflow needs a payment gateway in production, a fake gateway in tests, and possibly a different gateway in another market. DI keeps that wiring outside the business service. The service says what it needs; startup configuration decides which implementation it receives.
 
 ## Common Mistakes
 
-- Memorizing a definition of Dependency Injection but failing to connect it to a production problem.
-- Adding unnecessary abstraction before there is a clear reason.
-- Ignoring error handling, logging, validation, and testing around the implementation.
-- Treating the concept as a rule instead of a design tool.
-- Not explaining trade-offs such as complexity, performance, team familiarity, and operational support.
-
-## Follow-Up Questions an Interviewer May Ask
-
-- How would you test this?
-- How would you monitor it in production?
-- What would make you choose a simpler approach?
-- How would this design behave during partial failure?
-- How would you explain this decision in a code review?
-- What would you change if the traffic increased by ten times?
-
-## Senior-Level Explanation and Trade-Off Discussion
-
-A senior explanation of **Dependency Injection** should balance correctness and cost. The best answer usually says, "I would use this when the business risk or code complexity justifies it." For a 3+ year .NET developer, interviewers expect awareness that every pattern adds maintenance work. The stronger answer describes how the decision affects testing, deployment, observability, data consistency, and future changes.
+- Using DI to hide poor class design instead of reducing responsibilities.
+- Registering scoped dependencies inside singletons.
+- Injecting `IServiceProvider` instead of declaring real dependencies.
+- Creating interfaces for every class without a testing or boundary reason.
+- Forgetting to validate registrations before deployment.
 
 ## Summary Checklist
 
-- [ ] I can define Dependency Injection in simple English.
-- [ ] I can give a backend business example using orders, payments, invoices, inventory, or support workflows.
-- [ ] I can discuss implementation in ASP.NET Core or Azure when relevant.
-- [ ] I can explain common mistakes and how to avoid them.
-- [ ] I can describe trade-offs, testing strategy, and production monitoring.
+- [ ] I can explain constructor injection.
+- [ ] I can compare transient, scoped, and singleton lifetimes.
+- [ ] I can register a service in ASP.NET Core.
+- [ ] I can identify lifetime and too-many-dependencies problems.

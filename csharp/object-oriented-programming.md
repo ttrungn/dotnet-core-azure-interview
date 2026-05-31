@@ -25,90 +25,92 @@ Interviewers will listen for:
 - Keep business rules in services or domain models, not hidden inside controllers or EF queries.
 - For interviews, explain how the language feature helps reliability, testability, or maintainability.
 
-## Key Interview Questions
+## Interview Questions and Answers
 
-| # | Level | Question |
-|---|---|---|
-| 1 | Basic | What is Object-Oriented Programming in C#, and where have you used it in a .NET backend project? |
-| 2 | Basic | What problem does Object-Oriented Programming in C# solve for an API or business application? |
-| 3 | Intermediate | How would you implement or apply Object-Oriented Programming in C# in an ASP.NET Core service? |
-| 4 | Intermediate | What are common mistakes developers make with Object-Oriented Programming in C#? |
-| 5 | Advanced | What trade-offs should a senior developer consider before using Object-Oriented Programming in C#? |
-| 6 | Real-world scenario | An order API is slow, hard to test, and risky to deploy. How could Object-Oriented Programming in C# help, and what would you check first? |
+### 1. What is object-oriented programming in C#?
 
-## Strong Sample Answers
+**Answer:** Object-oriented programming organizes code around objects that hold state and behavior. In C#, the main ideas are encapsulation, abstraction, inheritance, and polymorphism. For backend systems, the most valuable part is usually encapsulation: keeping business rules close to the data they protect.
 
-1. **Definition answer:** Object-Oriented Programming in C# is useful when it improves the way a .NET service expresses business behavior, handles change, or protects runtime reliability. I would explain it with an example from an order, invoice, payment, inventory, or support workflow rather than only giving a definition.
+**Example:** An `Order` object should expose `AddLine()` and `Confirm()` methods instead of letting any caller freely modify `Status` and `Lines`.
 
-2. **Practical value answer:** In a real ASP.NET Core application, Object-Oriented Programming in C# matters because it affects maintainability, testability, production diagnostics, performance, security, or the API contract. I look for the smallest implementation that solves the business problem without adding ceremony.
+### 2. What is encapsulation, and why does it matter?
 
-3. **Implementation answer:** I would start from the use case, define the boundary, keep dependencies explicit through DI, write tests around business behavior, and check the impact on API responses, persistence, logging, and deployment.
+**Answer:** Encapsulation means hiding internal state and exposing controlled operations. It matters because it prevents invalid object states and makes business rules easier to find.
 
-4. **Mistake answer:** A common mistake is applying Object-Oriented Programming in C# mechanically. I would avoid adding patterns or infrastructure unless they reduce real risk, duplication, or coupling in the codebase.
+**Example:** If an order cannot be confirmed without lines, the `Order.Confirm()` method can enforce that rule. Without encapsulation, many services may set `Status = Confirmed` directly and bypass the rule.
 
-5. **Senior answer:** The trade-off is usually between simplicity now and flexibility later. I would consider team experience, operational cost, data consistency, failure handling, and whether the design is easy for another developer to review and support.
+### 3. When should you use inheritance?
 
-6. **Scenario answer:** If an order API is slow or hard to change, I would measure first, identify whether the issue is database access, coupling, deployment, unclear boundaries, or weak observability, then apply Object-Oriented Programming in C# where it directly addresses that bottleneck.
+**Answer:** Use inheritance when there is a stable "is-a" relationship and shared behavior truly belongs in a base type. In business applications, composition is often safer because inheritance can create tight coupling and fragile hierarchies.
+
+**Example:** A `CreditCardPaymentProcessor` and `BankTransferPaymentProcessor` may implement the same `IPaymentProcessor` interface instead of inheriting from a complex base class.
+
+### 4. What is polymorphism in a backend service?
+
+**Answer:** Polymorphism lets code work with a common contract while different implementations provide different behavior. It is useful when the caller should not care which concrete strategy is used.
+
+**Example:** A checkout service can call `paymentProcessor.CaptureAsync()` whether the implementation uses Stripe, Adyen, or a test fake.
+
+### 5. How can OOP make code worse?
+
+**Answer:** OOP becomes harmful when developers create deep inheritance trees, over-model simple data, or hide behavior behind too many abstractions. The goal is not to use classes everywhere; the goal is to make rules easier to change safely.
+
+**Example:** A simple request DTO should usually stay as a simple data shape. It does not need inheritance or business methods unless it owns real behavior.
+
+### 6. How would you use OOP in an order workflow?
+
+**Answer:** I would put order-specific rules inside an `Order` domain object and orchestration in an application service. The object protects invariants, while the service handles dependencies such as repositories, payment gateways, and notifications.
+
+**Example:** `Order.Confirm()` validates the order state. `PlaceOrderService` loads inventory, saves the order, and publishes follow-up work.
 
 ## Coding Example
 
 ```csharp
-public sealed class PaymentService
+public sealed class Order
 {
-    private readonly IPaymentGateway _gateway;
-    private readonly ILogger<PaymentService> _logger;
+    private readonly List<OrderLine> _lines = [];
 
-    public PaymentService(IPaymentGateway gateway, ILogger<PaymentService> logger)
+    public Guid Id { get; } = Guid.NewGuid();
+    public OrderStatus Status { get; private set; } = OrderStatus.Draft;
+    public IReadOnlyCollection<OrderLine> Lines => _lines.AsReadOnly();
+
+    public void AddLine(Guid productId, int quantity, decimal unitPrice)
     {
-        _gateway = gateway;
-        _logger = logger;
+        if (Status != OrderStatus.Draft)
+            throw new InvalidOperationException("Only draft orders can be changed.");
+
+        _lines.Add(new OrderLine(productId, quantity, unitPrice));
     }
 
-    public async Task<PaymentResult> CaptureAsync(Guid invoiceId, decimal amount, CancellationToken ct)
+    public void Confirm()
     {
-        _logger.LogInformation("Capturing payment for invoice {InvoiceId}", invoiceId);
-        return await _gateway.CaptureAsync(invoiceId, amount, ct);
+        if (_lines.Count == 0)
+            throw new InvalidOperationException("Cannot confirm an empty order.");
+
+        Status = OrderStatus.Confirmed;
     }
 }
+
+public sealed record OrderLine(Guid ProductId, int Quantity, decimal UnitPrice);
+
+public enum OrderStatus { Draft, Confirmed }
 ```
 
 ## Real-World Scenario
 
-You are building an order management capability for a commerce platform.
-
-The business requires:
-- Customers can place orders and review order status.
-- Inventory, payment, and notification workflows must stay reliable.
-- Support staff need clear diagnostics when something fails.
-- The system must be deployable without long downtime.
-
-For **Object-Oriented Programming in C#**, a strong candidate should connect the concept to this business flow, explain the technical decision, call out the cost of the decision, and describe how they would verify it in production. The interviewer is usually looking for practical reasoning: not just what the concept means, but when it improves maintainability, reliability, performance, or team delivery.
+An order should not be confirmed when it has no lines. With OOP, that rule belongs near the order state instead of being repeated across controllers, services, and background jobs. The object exposes useful behavior and protects itself from invalid changes.
 
 ## Common Mistakes
 
-- Memorizing a definition of Object-Oriented Programming in C# but failing to connect it to a production problem.
-- Adding unnecessary abstraction before there is a clear reason.
-- Ignoring error handling, logging, validation, and testing around the implementation.
-- Treating the concept as a rule instead of a design tool.
-- Not explaining trade-offs such as complexity, performance, team familiarity, and operational support.
-
-## Follow-Up Questions an Interviewer May Ask
-
-- How would you test this?
-- How would you monitor it in production?
-- What would make you choose a simpler approach?
-- How would this design behave during partial failure?
-- How would you explain this decision in a code review?
-- What would you change if the traffic increased by ten times?
-
-## Senior-Level Explanation and Trade-Off Discussion
-
-A senior explanation of **Object-Oriented Programming in C#** should balance correctness and cost. The best answer usually says, "I would use this when the business risk or code complexity justifies it." For a 3+ year .NET developer, interviewers expect awareness that every pattern adds maintenance work. The stronger answer describes how the decision affects testing, deployment, observability, data consistency, and future changes.
+- Making every class mutable with public setters.
+- Using inheritance when an interface or composition would be simpler.
+- Creating "manager" classes that know every business rule.
+- Treating domain objects as empty data containers when they should protect important invariants.
+- Adding abstractions that do not reduce coupling or clarify behavior.
 
 ## Summary Checklist
 
-- [ ] I can define Object-Oriented Programming in C# in simple English.
-- [ ] I can give a backend business example using orders, payments, invoices, inventory, or support workflows.
-- [ ] I can discuss implementation in ASP.NET Core or Azure when relevant.
-- [ ] I can explain common mistakes and how to avoid them.
-- [ ] I can describe trade-offs, testing strategy, and production monitoring.
+- [ ] I can explain encapsulation, abstraction, inheritance, and polymorphism.
+- [ ] I can show how an object protects business rules.
+- [ ] I can explain when composition is better than inheritance.
+- [ ] I can avoid over-engineering simple data models.

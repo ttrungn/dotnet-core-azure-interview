@@ -25,36 +25,43 @@ Interviewers will listen for:
 - Keep business rules in services or domain models, not hidden inside controllers or EF queries.
 - For interviews, explain how the language feature helps reliability, testability, or maintainability.
 
-## Key Interview Questions
+## Interview Questions and Answers
 
-| # | Level | Question |
-|---|---|---|
-| 1 | Basic | What is Async and Await, and where have you used it in a .NET backend project? |
-| 2 | Basic | What problem does Async and Await solve for an API or business application? |
-| 3 | Intermediate | How would you implement or apply Async and Await in an ASP.NET Core service? |
-| 4 | Intermediate | What are common mistakes developers make with Async and Await? |
-| 5 | Advanced | What trade-offs should a senior developer consider before using Async and Await? |
-| 6 | Real-world scenario | An order API is slow, hard to test, and risky to deploy. How could Async and Await help, and what would you check first? |
-| 7 | Advanced | How would you explain Async and Await to a product owner without using unnecessary jargon? |
-| 8 | Real-world scenario | How would you migrate an existing production feature toward better use of Async and Await without stopping delivery? |
+### 1. What are `async` and `await`?
 
-## Strong Sample Answers
+**Answer:** `async` marks a method that can perform asynchronous work, and `await` pauses that method until the awaited operation completes. The thread is not blocked while waiting for I/O, so ASP.NET Core can use threads more efficiently.
 
-1. **Definition answer:** Async and Await is useful when it improves the way a .NET service expresses business behavior, handles change, or protects runtime reliability. I would explain it with an example from an order, invoice, payment, inventory, or support workflow rather than only giving a definition.
+**Example:** Awaiting a database query or HTTP call lets the server handle other requests while the external operation is pending.
 
-2. **Practical value answer:** In a real ASP.NET Core application, Async and Await matters because it affects maintainability, testability, production diagnostics, performance, security, or the API contract. I look for the smallest implementation that solves the business problem without adding ceremony.
+### 2. What problem does async solve in web APIs?
 
-3. **Implementation answer:** I would start from the use case, define the boundary, keep dependencies explicit through DI, write tests around business behavior, and check the impact on API responses, persistence, logging, and deployment.
+**Answer:** Async helps with I/O-bound work such as database calls, HTTP APIs, storage, and queues. It improves scalability by avoiding blocked request threads. It does not automatically make CPU-heavy code faster.
 
-4. **Mistake answer:** A common mistake is applying Async and Await mechanically. I would avoid adding patterns or infrastructure unless they reduce real risk, duplication, or coupling in the codebase.
+**Example:** `await _dbContext.Orders.ToListAsync(ct)` is useful. Wrapping CPU-heavy price calculation in `Task.Run()` inside an API is usually not the right fix.
 
-5. **Senior answer:** The trade-off is usually between simplicity now and flexibility later. I would consider team experience, operational cost, data consistency, failure handling, and whether the design is easy for another developer to review and support.
+### 3. What should an async method return?
 
-6. **Scenario answer:** If an order API is slow or hard to change, I would measure first, identify whether the issue is database access, coupling, deployment, unclear boundaries, or weak observability, then apply Async and Await where it directly addresses that bottleneck.
+**Answer:** Most async methods return `Task` or `Task<T>`. Use `ValueTask<T>` only for specialized high-performance cases where the method often completes synchronously and the team understands the trade-offs.
 
-7. **Communication answer:** I would describe Async and Await in business terms: it either lowers release risk, makes customer-facing behavior more predictable, or makes failures easier to recover from.
+**Example:** `Task<OrderDto> GetOrderAsync(Guid id, CancellationToken ct)` is the normal shape for an API query service.
 
-8. **Migration answer:** I would not rewrite everything. I would choose one high-value workflow, add tests, introduce the improved design behind the existing API contract, release incrementally, and monitor behavior after deployment.
+### 4. Why should you avoid `.Result` and `.Wait()`?
+
+**Answer:** `.Result` and `.Wait()` block the current thread and can cause thread starvation or deadlocks in some environments. In ASP.NET Core, the correct approach is usually async all the way through the call chain.
+
+**Example:** A controller should `await _orderService.PlaceOrderAsync(request, ct)` instead of calling `_orderService.PlaceOrderAsync(request, ct).Result`.
+
+### 5. How should cancellation be handled?
+
+**Answer:** Pass `CancellationToken` through async calls so work can stop when the client disconnects, a timeout occurs, or the host is shutting down. Cancellation is especially important for database, HTTP, and queue operations.
+
+**Example:** Pass `ct` from the controller to EF Core: `await _dbContext.SaveChangesAsync(ct)`.
+
+### 6. What are common async mistakes?
+
+**Answer:** Common mistakes include blocking on async calls, forgetting to await a task, ignoring cancellation, using async for CPU-bound work without reason, and using `async void` outside event handlers.
+
+**Example:** If an email task is started but not awaited, the request may return success before the operation fails, and the exception can be lost.
 
 ## Coding Example
 
@@ -80,41 +87,19 @@ public sealed class PaymentService
 
 ## Real-World Scenario
 
-You are building an order management capability for a commerce platform.
-
-The business requires:
-- Customers can place orders and review order status.
-- Inventory, payment, and notification workflows must stay reliable.
-- Support staff need clear diagnostics when something fails.
-- The system must be deployable without long downtime.
-
-For **Async and Await**, a strong candidate should connect the concept to this business flow, explain the technical decision, call out the cost of the decision, and describe how they would verify it in production. The interviewer is usually looking for practical reasoning: not just what the concept means, but when it improves maintainability, reliability, performance, or team delivery.
+An API endpoint places an order, saves it to SQL, and calls a payment provider. Database and payment operations are I/O-bound, so they should be awaited and passed the request `CancellationToken`. That keeps request threads available and lets the operation stop if the client disconnects.
 
 ## Common Mistakes
 
-- Memorizing a definition of Async and Await but failing to connect it to a production problem.
-- Adding unnecessary abstraction before there is a clear reason.
-- Ignoring error handling, logging, validation, and testing around the implementation.
-- Treating the concept as a rule instead of a design tool.
-- Not explaining trade-offs such as complexity, performance, team familiarity, and operational support.
-
-## Follow-Up Questions an Interviewer May Ask
-
-- How would you test this?
-- How would you monitor it in production?
-- What would make you choose a simpler approach?
-- How would this design behave during partial failure?
-- How would you explain this decision in a code review?
-- What would you change if the traffic increased by ten times?
-
-## Senior-Level Explanation and Trade-Off Discussion
-
-A senior explanation of **Async and Await** should balance correctness and cost. The best answer usually says, "I would use this when the business risk or code complexity justifies it." For a 3+ year .NET developer, interviewers expect awareness that every pattern adds maintenance work. The stronger answer describes how the decision affects testing, deployment, observability, data consistency, and future changes.
+- Blocking async work with `.Result` or `.Wait()`.
+- Using `async void` for application logic.
+- Forgetting to pass `CancellationToken`.
+- Starting tasks without awaiting or intentionally managing them.
+- Assuming async makes CPU-bound work faster.
 
 ## Summary Checklist
 
-- [ ] I can define Async and Await in simple English.
-- [ ] I can give a backend business example using orders, payments, invoices, inventory, or support workflows.
-- [ ] I can discuss implementation in ASP.NET Core or Azure when relevant.
-- [ ] I can explain common mistakes and how to avoid them.
-- [ ] I can describe trade-offs, testing strategy, and production monitoring.
+- [ ] I can explain async for I/O-bound work.
+- [ ] I can use `Task`, `Task<T>`, and `CancellationToken`.
+- [ ] I can avoid blocking on async calls.
+- [ ] I can explain why async does not automatically improve CPU-bound work.

@@ -25,90 +25,84 @@ Interviewers will listen for:
 - Keep business rules in services or domain models, not hidden inside controllers or EF queries.
 - For interviews, explain how the language feature helps reliability, testability, or maintainability.
 
-## Key Interview Questions
+## Interview Questions and Answers
 
-| # | Level | Question |
-|---|---|---|
-| 1 | Basic | What is C# Fundamentals for Backend Development, and where have you used it in a .NET backend project? |
-| 2 | Basic | What problem does C# Fundamentals for Backend Development solve for an API or business application? |
-| 3 | Intermediate | How would you implement or apply C# Fundamentals for Backend Development in an ASP.NET Core service? |
-| 4 | Intermediate | What are common mistakes developers make with C# Fundamentals for Backend Development? |
-| 5 | Advanced | What trade-offs should a senior developer consider before using C# Fundamentals for Backend Development? |
-| 6 | Real-world scenario | An order API is slow, hard to test, and risky to deploy. How could C# Fundamentals for Backend Development help, and what would you check first? |
+### 1. What C# fundamentals matter most for backend development?
 
-## Strong Sample Answers
+**Answer:** The most important fundamentals are value types and reference types, null handling, collections, exceptions, async programming, access modifiers, interfaces, and basic object-oriented design. In backend work, these fundamentals affect API correctness, memory behavior, testability, and how clearly business rules are expressed.
 
-1. **Definition answer:** C# Fundamentals for Backend Development is useful when it improves the way a .NET service expresses business behavior, handles change, or protects runtime reliability. I would explain it with an example from an order, invoice, payment, inventory, or support workflow rather than only giving a definition.
+**Example:** In an order API, choosing `decimal` for money, `Guid` for identifiers, `DateTimeOffset` for timestamps, and explicit null checks for optional fields prevents many production bugs before architecture patterns are even involved.
 
-2. **Practical value answer:** In a real ASP.NET Core application, C# Fundamentals for Backend Development matters because it affects maintainability, testability, production diagnostics, performance, security, or the API contract. I look for the smallest implementation that solves the business problem without adding ceremony.
+### 2. What is the difference between a value type and a reference type?
 
-3. **Implementation answer:** I would start from the use case, define the boundary, keep dependencies explicit through DI, write tests around business behavior, and check the impact on API responses, persistence, logging, and deployment.
+**Answer:** A value type stores the value directly, while a reference type stores a reference to an object. Structs, `int`, `bool`, and `decimal` are common value types. Classes, strings, arrays, and most service objects are reference types. This matters because assignment, mutation, and nullability behave differently.
 
-4. **Mistake answer:** A common mistake is applying C# Fundamentals for Backend Development mechanically. I would avoid adding patterns or infrastructure unless they reduce real risk, duplication, or coupling in the codebase.
+**Example:** If two variables point to the same `Customer` object, changing the object through one variable is visible through the other. If two variables hold a `decimal amount`, changing one does not change the other.
 
-5. **Senior answer:** The trade-off is usually between simplicity now and flexibility later. I would consider team experience, operational cost, data consistency, failure handling, and whether the design is easy for another developer to review and support.
+### 3. Why is `decimal` usually preferred over `double` for money?
 
-6. **Scenario answer:** If an order API is slow or hard to change, I would measure first, identify whether the issue is database access, coupling, deployment, unclear boundaries, or weak observability, then apply C# Fundamentals for Backend Development where it directly addresses that bottleneck.
+**Answer:** `decimal` is designed for base-10 financial calculations and avoids many binary floating-point rounding surprises. `double` is better for scientific or approximate numeric work, not business amounts that must be exact to cents.
+
+**Example:** A payment service should use `decimal amount` for invoice totals, discounts, and taxes. Using `double` can create rounding differences that are difficult to explain to users and auditors.
+
+### 4. How do access modifiers help maintainable code?
+
+**Answer:** Access modifiers control what other code can use or change. Good use of `private`, `internal`, and `public` keeps implementation details hidden and makes the public contract smaller. A smaller contract is easier to test, review, and safely change.
+
+**Example:** An `Order` class can expose `Confirm()` publicly but keep `Status` setters private, so callers cannot accidentally mark an invalid order as confirmed.
+
+### 5. How would you explain exceptions in basic C# terms?
+
+**Answer:** Exceptions represent failures that interrupt normal execution. Backend code should throw exceptions for unexpected or invalid states, catch them at meaningful boundaries, log enough context, and return safe API responses.
+
+**Example:** A domain service may throw `InvalidOperationException` when confirming an empty order. ASP.NET Core middleware can translate that failure into a controlled error response without exposing stack traces.
+
+### 6. How do you apply C# fundamentals in a real API feature?
+
+**Answer:** Start with clear types, explicit method names, simple control flow, and small classes. Use language features only when they make behavior clearer or safer. Strong fundamentals reduce the need for complicated fixes later.
+
+**Example:** For `PlaceOrder`, define request DTOs, validate required fields, use `decimal` for totals, handle cancellation with `CancellationToken`, and return a result that clearly describes success or failure.
 
 ## Coding Example
 
 ```csharp
-public sealed class PaymentService
+public sealed class CreateOrderRequest
 {
-    private readonly IPaymentGateway _gateway;
-    private readonly ILogger<PaymentService> _logger;
+    public Guid CustomerId { get; init; }
+    public IReadOnlyList<CreateOrderLineRequest> Lines { get; init; } = [];
+}
 
-    public PaymentService(IPaymentGateway gateway, ILogger<PaymentService> logger)
-    {
-        _gateway = gateway;
-        _logger = logger;
-    }
+public sealed class CreateOrderLineRequest
+{
+    public Guid ProductId { get; init; }
+    public int Quantity { get; init; }
+    public decimal UnitPrice { get; init; }
+}
 
-    public async Task<PaymentResult> CaptureAsync(Guid invoiceId, decimal amount, CancellationToken ct)
-    {
-        _logger.LogInformation("Capturing payment for invoice {InvoiceId}", invoiceId);
-        return await _gateway.CaptureAsync(invoiceId, amount, ct);
-    }
+public static decimal CalculateTotal(CreateOrderRequest request)
+{
+    if (request.Lines.Count == 0)
+        throw new ArgumentException("An order must contain at least one line.");
+
+    return request.Lines.Sum(line => line.Quantity * line.UnitPrice);
 }
 ```
 
 ## Real-World Scenario
 
-You are building an order management capability for a commerce platform.
-
-The business requires:
-- Customers can place orders and review order status.
-- Inventory, payment, and notification workflows must stay reliable.
-- Support staff need clear diagnostics when something fails.
-- The system must be deployable without long downtime.
-
-For **C# Fundamentals for Backend Development**, a strong candidate should connect the concept to this business flow, explain the technical decision, call out the cost of the decision, and describe how they would verify it in production. The interviewer is usually looking for practical reasoning: not just what the concept means, but when it improves maintainability, reliability, performance, or team delivery.
+You are implementing order creation. Good C# fundamentals show up in small decisions: `Guid` for ids, `decimal` for money, `IReadOnlyList<T>` for input that should not be mutated by consumers, and explicit validation before calculation. These choices make the feature easier to review before any framework-specific code is involved.
 
 ## Common Mistakes
 
-- Memorizing a definition of C# Fundamentals for Backend Development but failing to connect it to a production problem.
-- Adding unnecessary abstraction before there is a clear reason.
-- Ignoring error handling, logging, validation, and testing around the implementation.
-- Treating the concept as a rule instead of a design tool.
-- Not explaining trade-offs such as complexity, performance, team familiarity, and operational support.
-
-## Follow-Up Questions an Interviewer May Ask
-
-- How would you test this?
-- How would you monitor it in production?
-- What would make you choose a simpler approach?
-- How would this design behave during partial failure?
-- How would you explain this decision in a code review?
-- What would you change if the traffic increased by ten times?
-
-## Senior-Level Explanation and Trade-Off Discussion
-
-A senior explanation of **C# Fundamentals for Backend Development** should balance correctness and cost. The best answer usually says, "I would use this when the business risk or code complexity justifies it." For a 3+ year .NET developer, interviewers expect awareness that every pattern adds maintenance work. The stronger answer describes how the decision affects testing, deployment, observability, data consistency, and future changes.
+- Using vague types such as `string` for values that need stronger meaning.
+- Ignoring nullability and relying on runtime failures.
+- Using public setters everywhere, which allows invalid object state.
+- Catching exceptions too broadly and hiding useful diagnostics.
+- Choosing clever syntax when simple code would be easier to maintain.
 
 ## Summary Checklist
 
-- [ ] I can define C# Fundamentals for Backend Development in simple English.
-- [ ] I can give a backend business example using orders, payments, invoices, inventory, or support workflows.
-- [ ] I can discuss implementation in ASP.NET Core or Azure when relevant.
-- [ ] I can explain common mistakes and how to avoid them.
-- [ ] I can describe trade-offs, testing strategy, and production monitoring.
+- [ ] I can explain value types, reference types, nullability, collections, and exceptions.
+- [ ] I can choose appropriate types for money, identifiers, dates, and optional data.
+- [ ] I can use access modifiers to protect object state.
+- [ ] I can connect basic C# choices to API correctness and maintainability.

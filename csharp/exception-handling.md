@@ -25,90 +25,87 @@ Interviewers will listen for:
 - Keep business rules in services or domain models, not hidden inside controllers or EF queries.
 - For interviews, explain how the language feature helps reliability, testability, or maintainability.
 
-## Key Interview Questions
+## Interview Questions and Answers
 
-| # | Level | Question |
-|---|---|---|
-| 1 | Basic | What is Exception Handling, and where have you used it in a .NET backend project? |
-| 2 | Basic | What problem does Exception Handling solve for an API or business application? |
-| 3 | Intermediate | How would you implement or apply Exception Handling in an ASP.NET Core service? |
-| 4 | Intermediate | What are common mistakes developers make with Exception Handling? |
-| 5 | Advanced | What trade-offs should a senior developer consider before using Exception Handling? |
-| 6 | Real-world scenario | An order API is slow, hard to test, and risky to deploy. How could Exception Handling help, and what would you check first? |
+### 1. What is exception handling?
 
-## Strong Sample Answers
+**Answer:** Exception handling is how C# reports and manages unexpected failures. Code can throw an exception when it cannot continue normally, and higher-level code can catch it where there is enough context to handle, log, or translate it.
 
-1. **Definition answer:** Exception Handling is useful when it improves the way a .NET service expresses business behavior, handles change, or protects runtime reliability. I would explain it with an example from an order, invoice, payment, inventory, or support workflow rather than only giving a definition.
+**Example:** A service may throw when a payment provider is unavailable. API middleware can log the exception and return a safe `500` response.
 
-2. **Practical value answer:** In a real ASP.NET Core application, Exception Handling matters because it affects maintainability, testability, production diagnostics, performance, security, or the API contract. I look for the smallest implementation that solves the business problem without adding ceremony.
+### 2. When should you throw an exception?
 
-3. **Implementation answer:** I would start from the use case, define the boundary, keep dependencies explicit through DI, write tests around business behavior, and check the impact on API responses, persistence, logging, and deployment.
+**Answer:** Throw an exception for unexpected states, programming errors, or failures that stop the current operation. Do not use exceptions for normal control flow that happens often and can be represented clearly.
 
-4. **Mistake answer:** A common mistake is applying Exception Handling mechanically. I would avoid adding patterns or infrastructure unless they reduce real risk, duplication, or coupling in the codebase.
+**Example:** Throwing when an order total is negative is reasonable. Returning a validation result for a missing required field is often better than throwing.
 
-5. **Senior answer:** The trade-off is usually between simplicity now and flexibility later. I would consider team experience, operational cost, data consistency, failure handling, and whether the design is easy for another developer to review and support.
+### 3. Where should exceptions be caught in an ASP.NET Core app?
 
-6. **Scenario answer:** If an order API is slow or hard to change, I would measure first, identify whether the issue is database access, coupling, deployment, unclear boundaries, or weak observability, then apply Exception Handling where it directly addresses that bottleneck.
+**Answer:** Catch exceptions at meaningful boundaries, such as middleware, background worker loops, or integration adapters. Avoid catching exceptions too low unless you can add context, retry, compensate, or translate the error.
+
+**Example:** A repository should usually let a database exception bubble up. Global exception middleware can log it with request context and return Problem Details.
+
+### 4. What is the difference between logging and handling an exception?
+
+**Answer:** Logging records the failure. Handling means the code takes a meaningful action, such as retrying, returning a controlled response, using a fallback, or stopping safely. Catching only to log and rethrow can create duplicate logs.
+
+**Example:** A message consumer may catch an exception, log the message id, and let the queue retry or move the message to a dead-letter queue.
+
+### 5. How should custom exceptions be used?
+
+**Answer:** Use custom exceptions when they represent a meaningful category that callers can handle differently. Avoid creating custom exceptions for every small failure.
+
+**Example:** `PaymentDeclinedException` may be useful if the API should return a specific business response. `OrderServiceException` for every failure is usually too vague.
+
+### 6. What should you avoid exposing to API clients?
+
+**Answer:** Do not expose stack traces, connection strings, SQL details, secrets, or internal service names. Return a clear client-safe error and keep detailed diagnostics in logs and telemetry.
+
+**Example:** Return `400` for validation errors, `404` for missing resources, and a generic `500` for unexpected failures while logging the exception internally.
 
 ## Coding Example
 
 ```csharp
-public sealed class PaymentService
+public sealed class OrdersController : ControllerBase
 {
-    private readonly IPaymentGateway _gateway;
-    private readonly ILogger<PaymentService> _logger;
+    private readonly IOrderService _orders;
 
-    public PaymentService(IPaymentGateway gateway, ILogger<PaymentService> logger)
+    public OrdersController(IOrderService orders)
     {
-        _gateway = gateway;
-        _logger = logger;
+        _orders = orders;
     }
 
-    public async Task<PaymentResult> CaptureAsync(Guid invoiceId, decimal amount, CancellationToken ct)
+    [HttpPost("{id:guid}/confirm")]
+    public async Task<IActionResult> ConfirmAsync(Guid id, CancellationToken ct)
     {
-        _logger.LogInformation("Capturing payment for invoice {InvoiceId}", invoiceId);
-        return await _gateway.CaptureAsync(invoiceId, amount, ct);
+        try
+        {
+            await _orders.ConfirmAsync(id, ct);
+            return NoContent();
+        }
+        catch (OrderNotFoundException)
+        {
+            return NotFound();
+        }
     }
 }
 ```
 
 ## Real-World Scenario
 
-You are building an order management capability for a commerce platform.
-
-The business requires:
-- Customers can place orders and review order status.
-- Inventory, payment, and notification workflows must stay reliable.
-- Support staff need clear diagnostics when something fails.
-- The system must be deployable without long downtime.
-
-For **Exception Handling**, a strong candidate should connect the concept to this business flow, explain the technical decision, call out the cost of the decision, and describe how they would verify it in production. The interviewer is usually looking for practical reasoning: not just what the concept means, but when it improves maintainability, reliability, performance, or team delivery.
+Order confirmation can fail because the order does not exist, the state is invalid, or the database is unavailable. Expected business failures should become clear client responses. Unexpected infrastructure failures should be logged with context and returned as safe generic errors.
 
 ## Common Mistakes
 
-- Memorizing a definition of Exception Handling but failing to connect it to a production problem.
-- Adding unnecessary abstraction before there is a clear reason.
-- Ignoring error handling, logging, validation, and testing around the implementation.
-- Treating the concept as a rule instead of a design tool.
-- Not explaining trade-offs such as complexity, performance, team familiarity, and operational support.
-
-## Follow-Up Questions an Interviewer May Ask
-
-- How would you test this?
-- How would you monitor it in production?
-- What would make you choose a simpler approach?
-- How would this design behave during partial failure?
-- How would you explain this decision in a code review?
-- What would you change if the traffic increased by ten times?
-
-## Senior-Level Explanation and Trade-Off Discussion
-
-A senior explanation of **Exception Handling** should balance correctness and cost. The best answer usually says, "I would use this when the business risk or code complexity justifies it." For a 3+ year .NET developer, interviewers expect awareness that every pattern adds maintenance work. The stronger answer describes how the decision affects testing, deployment, observability, data consistency, and future changes.
+- Swallowing exceptions and hiding failures.
+- Catching `Exception` everywhere without a recovery plan.
+- Exposing internal exception details to clients.
+- Using exceptions for expected validation flow.
+- Logging the same exception repeatedly at multiple layers.
 
 ## Summary Checklist
 
-- [ ] I can define Exception Handling in simple English.
-- [ ] I can give a backend business example using orders, payments, invoices, inventory, or support workflows.
-- [ ] I can discuss implementation in ASP.NET Core or Azure when relevant.
-- [ ] I can explain common mistakes and how to avoid them.
-- [ ] I can describe trade-offs, testing strategy, and production monitoring.
+- [ ] I can explain throw, catch, and rethrow behavior.
+- [ ] I can choose where exceptions should be translated to API responses.
+- [ ] I can avoid leaking internal details.
+- [ ] I can distinguish validation results from unexpected exceptions.
