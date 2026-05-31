@@ -15,4 +15,7 @@ Use this order to move from basic design principles into application boundaries,
 11. [Microservices Architecture](microservices-architecture.md)
 12. [Monolith vs Microservices](monolith-vs-microservices.md)
 13. [Event-Driven Architecture](event-driven-architecture.md)
-
+14. [Saga Pattern](saga-pattern.md)
+15. [Outbox Pattern](outbox-pattern.md)
+16. [Reliability Design](reliability-design.md)
+17. [Scalability Design](scalability-design.md)

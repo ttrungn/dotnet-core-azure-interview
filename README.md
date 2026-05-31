@@ -133,6 +133,10 @@ Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
 - [Microservices Architecture](architecture/microservices-architecture.md)
 - [Monolith vs Microservices](architecture/monolith-vs-microservices.md)
 - [Event-Driven Architecture](architecture/event-driven-architecture.md)
+- [Saga Pattern](architecture/saga-pattern.md)
+- [Outbox Pattern](architecture/outbox-pattern.md)
+- [Reliability Design](architecture/reliability-design.md)
+- [Scalability Design](architecture/scalability-design.md)
 
 ## Data Access
 
