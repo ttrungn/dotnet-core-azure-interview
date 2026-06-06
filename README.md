@@ -1,8 +1,8 @@
-# .NET Developer Interview
+# .NET Developer Career Path
 
 ## Purpose
 
-This wiki helps a .NET developer prepare for interviews focused on C#, ASP.NET Core, REST APIs, CQRS, Domain-Driven Design, clean architecture, Azure, DevOps, Docker, Kubernetes, testing, and code quality.
+This wiki helps a .NET developers focusing on C#, ASP.NET Core, REST APIs, CQRS, Domain-Driven Design, clean architecture, Azure, DevOps, Docker, Kubernetes, testing, and code quality.
 
 The content is written for practical interview preparation. Each page explains one concept, breaks down the core ideas with examples, explains why it matters, adds practical notes, provides interview questions with direct answers and examples, includes a realistic backend example when useful, and finishes with a real-world scenario, common mistakes, and a checklist.
 
